@@ -33,6 +33,32 @@ default Timezone "UTC"
 php artisan make:lazycrud ClassNameModel
 ```
 
-ClassNameModel = Change Class Name With Class Model in laravel
+ClassNameModel = Change ClassNameModel With Class Model in laravel
+
+* Change destination route inject on artisan run with add --inject-route option
+```
+php artisan make:lazycrud ClassNameModel --inject-route=route_file_name
+```
+example: 
+    php artisan make:lazycrud Lazy --inject-route=api.php
+
+The CRUD route will inject to api.php file    
+
+* Custom inject route on the config/lazycrud.php
+
+```
+<?php
+return [
+    'inject' => [
+        'controller' => [
+            'user_id' => [
+                'method' => 'Auth::user()->id',
+                'use' => 'use Illuminate\Support\Facades\Auth;'
+            ]
+        ],
+        'route' => env('INJECT_ROUTE', 'web.php')
+    ]
+];
+```
 
 If you have any problem to use this package, please don't hesitate to drop me and email at dyan.galih@gmail.com or chat me directly @DyanGalih on Telegram

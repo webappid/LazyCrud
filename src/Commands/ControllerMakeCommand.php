@@ -23,6 +23,11 @@ abstract class ControllerMakeCommand extends SmartMakeCommand
     protected $folder;
 
     /**
+     * @var string
+     */
+    protected $injectRoute = null;
+
+    /**
      * @var array
      */
     protected $injectList;
@@ -35,11 +40,14 @@ abstract class ControllerMakeCommand extends SmartMakeCommand
 
     function closeHandle()
     {
+        if ($this->injectRoute != null) {
+            $route = $this->injectRoute;
+        } else {
+            $route = Config::get('lazycrud.inject.route');
+        }
         $this->lower = strtolower($this->inputName);
 
         $this->folder = Str::pluralStudly(class_basename($this->inputName));
-
-        $route = Config::get('lazycrud.inject.route');
 
         $routeFile = $this->files->get(base_path('routes/' . $route));
 

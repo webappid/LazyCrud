@@ -21,7 +21,7 @@ class CrudMakeCommand extends TestSmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'IntegrationTest';
-        $this->name = 'make:lazycrud';
+        $this->signature = 'make:lazycrud {name} {--inject-route=}';
         $this->description = 'Create a new CRUD';
         $this->stubFile = 'TestIntegration';
         $this->nameSpace = '\Feature\Integrations';
@@ -32,7 +32,8 @@ class CrudMakeCommand extends TestSmartMakeCommand
     {
         $this->call('make:lazycontrollerindex',
             [
-                "name" => $this->inputName
+                "name" => $this->inputName,
+                "--inject-route" => $this->option('inject-route')
             ]);
     }
 
@@ -40,7 +41,8 @@ class CrudMakeCommand extends TestSmartMakeCommand
     {
         $this->call('make:lazycontrollerdetail',
             [
-                "name" => $this->inputName
+                "name" => $this->inputName,
+                "--inject-route" => $this->option('inject-route')
             ]);
     }
 
@@ -48,7 +50,8 @@ class CrudMakeCommand extends TestSmartMakeCommand
     {
         $this->call('make:lazycontrollerdelete',
             [
-                "name" => $this->inputName
+                "name" => $this->inputName,
+                "--inject-route" => $this->option('inject-route')
             ]);
     }
 
@@ -56,7 +59,8 @@ class CrudMakeCommand extends TestSmartMakeCommand
     {
         $this->call('make:lazycontrollerstore',
             [
-                "name" => $this->inputName
+                "name" => $this->inputName,
+                "--inject-route" => $this->option('inject-route')
             ]);
     }
 
@@ -64,7 +68,8 @@ class CrudMakeCommand extends TestSmartMakeCommand
     {
         $this->call('make:lazycontrollerupdate',
             [
-                "name" => $this->inputName
+                "name" => $this->inputName,
+                "--inject-route" => $this->option('inject-route')
             ]);
     }
 

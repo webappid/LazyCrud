@@ -23,7 +23,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'StoreController';
-        $this->name = 'make:lazycontrollerstore';
+        $this->signature = 'make:lazycontrollerstore {name} {--inject-route=}';
         $this->description = 'Create a new Store Controller Class';
         $this->stubFile = 'ControllerStore';
         $this->nameSpace = '\Http\Controllers';

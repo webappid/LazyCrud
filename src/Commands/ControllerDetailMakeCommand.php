@@ -22,7 +22,7 @@ class ControllerDetailMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'DetailController';
-        $this->name = 'make:lazycontrollerdetail';
+        $this->signature = 'make:lazycontrollerdetail {name} {--inject-route=}';
         $this->description = 'Create a new Detail Controller Class';
         $this->stubFile = 'ControllerDetail';
         $this->nameSpace = '\Http\Controllers';
@@ -42,6 +42,9 @@ class ControllerDetailMakeCommand extends ControllerMakeCommand
 
     function prevHandle()
     {
+        if($this->hasOption('inject-route')){
+            $this->injectRoute = $this->option('inject-route');
+        }
         $this->createServiceContract();
     }
 

@@ -23,7 +23,7 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'UpdateController';
-        $this->name = 'make:lazycontrollerupdate';
+        $this->signature = 'make:lazycontrollerupdate {name} {--inject-route=}';
         $this->description = 'Create a new Update Controller Class';
         $this->stubFile = 'ControllerUpdate';
         $this->nameSpace = '\Http\Controllers';
@@ -51,6 +51,9 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
 
     function prevHandle()
     {
+        if($this->hasOption('inject-route')){
+            $this->injectRoute = $this->option('inject-route');
+        }
         $this->createRequest();
         $this->createServiceContract();
     }
