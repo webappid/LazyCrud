@@ -69,6 +69,7 @@ class SmartTestCase extends TestCase
         parent::setUp();
         Artisan::call('migrate');
         Artisan::call('db:seed');
+        Artisan::call('webappid:user:seed');
     }
 
     public function tearDown(): void
