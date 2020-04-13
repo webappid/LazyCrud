@@ -16,6 +16,14 @@ composer require --dev webappid/lazycrud
 ```
 php artisan vendor:publish --provider="WebAppId\LazyCrud\ServiceProvider"
 ```
+* Add those config value on .env
+```
+    AUTHOR="Your Name<Email>"
+    TZ="GMT+7"
+```
+default AUTHOR ""
+default Timezone "UTC"
+
 * By default crud will ignore for fields user_id, created_at, updated_at, and primary key field type.
 * Create migration and run it first. For example, create categories table via migration
 * Run the artisan command to create a CRUD
