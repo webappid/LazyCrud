@@ -24,7 +24,7 @@ class ModelMakeCommand extends SmartMakeCommand
     {
         $this->classNameSuffix = '';
         $this->name = 'make:lazymodel';
-        $this->description = 'Create a new Smart Model Class';
+        $this->description = 'Create a new Model Class';
         $this->stubFile = 'Model';
         $this->nameSpace = '\Models';
         $this->hidden = true;
