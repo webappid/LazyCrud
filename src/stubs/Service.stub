@@ -31,11 +31,11 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     {
         $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
 
-        $result = $this->getContainer()->call([$dummyClassRepository, 'store'], ['categoryRepositoryRequest' => $dummyClassRepositoryRequest]);
+        $result = $this->getContainer()->call([$dummyClassRepository, 'store'], ['dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {
             $dummyClassServiceResponse->setStatus(true);
             $dummyClassServiceResponse->setMessage('Store Data Success');
-            $dummyClassServiceResponse->category = $result;
+            $dummyClassServiceResponse->dummyClass = $result;
         } else {
             $dummyClassServiceResponse->setStatus(false);
             $dummyClassServiceResponse->setMessage('Store Data Failed');
@@ -51,11 +51,11 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     {
         $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
 
-        $result = $this->getContainer()->call([$dummyClassRepository, 'update'], ['id' => $id, 'categoryRepositoryRequest' => $dummyClassRepositoryRequest]);
+        $result = $this->getContainer()->call([$dummyClassRepository, 'update'], ['id' => $id, 'dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {
             $dummyClassServiceResponse->setStatus(true);
             $dummyClassServiceResponse->setMessage('Update Data Success');
-            $dummyClassServiceResponse->category = $result;
+            $dummyClassServiceResponse->dummyClass = $result;
         } else {
             $dummyClassServiceResponse->setStatus(false);
             $dummyClassServiceResponse->setMessage('Update Data Failed');
@@ -73,7 +73,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
         if ($result != null) {
             $dummyClassServiceResponse->setStatus(true);
             $dummyClassServiceResponse->setMessage('Data Found');
-            $dummyClassServiceResponse->category = $result;
+            $dummyClassServiceResponse->dummyClass = $result;
         } else {
             $dummyClassServiceResponse->setStatus(false);
             $dummyClassServiceResponse->setMessage('Data Not Found');
@@ -100,7 +100,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
         if (count($result) > 0) {
             $dummyClassServiceResponseList->setStatus(true);
             $dummyClassServiceResponseList->setMessage('Data Found');
-            $dummyClassServiceResponseList->category = $result;
+            $dummyClassServiceResponseList->dummyClass = $result;
         } else {
             $dummyClassServiceResponseList->setStatus(false);
             $dummyClassServiceResponseList->setMessage('Data Not Found');

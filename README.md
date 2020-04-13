@@ -7,6 +7,7 @@ Lazy Crud is a tool to help the developer to create CRUD API in one line artisan
 * laravel >= 6
 
 ### Install and use the tool
+* setup Laravel database on the .env file to connect to mysql database. Makes sure that your application connect to mysql database successfully.
 * Install package via composer as a dev package
 
 ```
@@ -32,6 +33,6 @@ default Timezone "UTC"
 php artisan make:lazycrud ClassNameModel
 ```
 
-ClassNameModel = Change itu Class name for Model in laravel
+ClassNameModel = Change Class Name With Class Model in laravel
 
 If you have any problem to use this package, please don't hesitate to drop me and email at dyan.galih@gmail.com or chat me directly @DyanGalih on Telegram
