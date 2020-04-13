@@ -8,7 +8,7 @@ namespace Tests\Services;
 use App\Services\DummyClassService;
 use App\Services\Requests\DummyClassServiceRequest;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Tests\Repositories\DummyClassRepositoryTest;
+use Tests\Unit\Repositories\DummyClassRepositoryTest;
 use Tests\SmartTestCase;
 use WebAppId\DDD\Tools\Lazy;
 

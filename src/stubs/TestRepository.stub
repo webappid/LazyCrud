@@ -3,7 +3,7 @@
  * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
  */
 
-namespace Tests\Repositories;
+namespace Tests\Unit\Repositories;
 
 use App\Models\DummyClass;
 use App\Repositories\DummyClassRepository;

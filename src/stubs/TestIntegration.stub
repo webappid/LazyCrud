@@ -3,7 +3,7 @@
 namespace Tests\Feature\Integration;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Tests\Repositories\DummyClassRepositoryTest;
+use Tests\Unit\Repositories\DummyClassRepositoryTest;
 use Tests\SmartTestCase;
 
 class DummyClassIntegrationTest extends SmartTestCase
