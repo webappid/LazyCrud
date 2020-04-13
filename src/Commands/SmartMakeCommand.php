@@ -181,6 +181,6 @@ abstract class SmartMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return base_path('stubs/' . $this->stubFile . '.stub');
+        return __DIR__ .'/../stubs/' . $this->stubFile . '.stub';
     }
 }

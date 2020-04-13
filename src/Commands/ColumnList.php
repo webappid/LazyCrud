@@ -55,7 +55,7 @@ trait ColumnList
                    $ignore = true;
                }
             }
-            if ($columnName != 'created_at' && $columnName != 'updated_at' && $autoincrementColumn != $columnName && !$ignore) {
+            if ($columnName != 'created_at' && $columnName != 'updated_at' && $autoincrementColumn != $columnName) {
                 $type = Schema::connection(null)->getColumnType($table, $columnName);
 
                 switch ($type) {
@@ -85,15 +85,17 @@ trait ColumnList
                 }
                 switch ($this->propertiesModel) {
                     case 1:
-                        $items = [];
-                        $items[] = $realType;
-                        if ($result->IS_NULLABLE == 'NO') {
-                            $items[] = 'required';
+                        if(!$ignore) {
+                            $items = [];
+                            $items[] = $realType;
+                            if ($result->IS_NULLABLE == 'NO') {
+                                $items[] = 'required';
+                            }
+                            if ($type == 'string') {
+                                $items[] = 'max:' . $result->CHARACTER_MAXIMUM_LENGTH;
+                            }
+                            $propertyList[] = "'" . $columnName . "' => '" . implode('|', $items) . "'";
                         }
-                        if ($type == 'string') {
-                            $items[] = 'max:' . $result->CHARACTER_MAXIMUM_LENGTH;
-                        }
-                        $propertyList[] = "'" . $columnName . "' => '" . implode('|', $items) . "'";
                         break;
                     case 2:
                         $property .= '
