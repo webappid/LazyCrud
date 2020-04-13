@@ -24,7 +24,7 @@ class TestSmartTestCaseMakeCommand extends TestSmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'TestCase';
-        $this->name = 'make:testsmarttestcase';
+        $this->name = 'make:lazytestsmarttestcase';
         $this->description = 'Create a new Smart Test CaseClass';
         $this->stubFile = 'SmartTestCase';
         $this->nameSpace = '\\';

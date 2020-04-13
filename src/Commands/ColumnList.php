@@ -50,7 +50,7 @@ trait ColumnList
         foreach ($resultList as $result) {
             $columnName = $result->COLUMN_NAME;
             $ignore = false;
-            foreach (Config::get('smartbuild.inject.controller') as $key => $value) {
+            foreach (Config::get('lazycrud.inject.controller') as $key => $value) {
                if($key == $columnName){
                    $ignore = true;
                }

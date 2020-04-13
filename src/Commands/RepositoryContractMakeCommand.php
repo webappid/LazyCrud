@@ -17,7 +17,7 @@ class RepositoryContractMakeCommand extends SmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'RepositoryContract';
-        $this->name = 'make:repositorycontract';
+        $this->name = 'make:lazyrepositorycontract';
         $this->description = 'Create a new repository contract interface';
         $this->stubFile = 'RepositoryContract';
         $this->nameSpace = '\Repositories\Contracts';
@@ -27,7 +27,7 @@ class RepositoryContractMakeCommand extends SmartMakeCommand
 
     private function createRepositoryRequest()
     {
-        $this->call('make:repositoryrequest',
+        $this->call('make:lazyrepositoryrequest',
             [
                 "name" => $this->inputName
             ]);
@@ -35,7 +35,7 @@ class RepositoryContractMakeCommand extends SmartMakeCommand
 
     private function createModel()
     {
-        $this->call('make:smartmodel',
+        $this->call('make:lazymodel',
             [
                 "name" => $this->inputName
             ]);

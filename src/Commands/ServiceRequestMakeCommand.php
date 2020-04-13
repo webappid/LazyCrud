@@ -19,7 +19,7 @@ class ServiceRequestMakeCommand extends SmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'ServiceRequest';
-        $this->name = 'make:servicerequest';
+        $this->name = 'make:lazyservicerequest';
         $this->description = 'Create a new Service Request Class';
         $this->stubFile = 'ServiceRequest';
         $this->nameSpace = '\Services\Requests';

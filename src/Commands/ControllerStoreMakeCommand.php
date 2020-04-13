@@ -23,7 +23,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'StoreController';
-        $this->name = 'make:controllerstore';
+        $this->name = 'make:lazycontrollerstore';
         $this->description = 'Create a new Store Controller Class';
         $this->stubFile = 'ControllerStore';
         $this->nameSpace = '\Http\Controllers';
@@ -34,7 +34,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
 
     private function createRequest()
     {
-        $this->call('make:smartrequest',
+        $this->call('make:lazyrequest',
             [
                 "name" => $this->inputName
             ]);
@@ -42,7 +42,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
 
     private function createServiceContract()
     {
-        $this->call('make:smartservice',
+        $this->call('make:lazyservice',
             [
                 "name" => $this->inputName
             ]);

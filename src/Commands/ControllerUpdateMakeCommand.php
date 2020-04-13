@@ -23,7 +23,7 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'UpdateController';
-        $this->name = 'make:controllerupdate';
+        $this->name = 'make:lazycontrollerupdate';
         $this->description = 'Create a new Update Controller Class';
         $this->stubFile = 'ControllerUpdate';
         $this->nameSpace = '\Http\Controllers';
@@ -34,7 +34,7 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
 
     private function createRequest()
     {
-        $this->call('make:smartrequest',
+        $this->call('make:lazyrequest',
             [
                 "name" => $this->inputName
             ]);
@@ -42,7 +42,7 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
 
     private function createServiceContract()
     {
-        $this->call('make:smartservice',
+        $this->call('make:lazyservice',
             [
                 "name" => $this->inputName
             ]);
@@ -57,7 +57,7 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
 
     function replaceClassCustom(string $stub)
     {
-        $injectedList = Config::get('smartbuild.inject.controller');
+        $injectedList = Config::get('lazycrud.inject.controller');
         $injectedData = '';
         $injectUse = '';
         foreach ($injectedList as $key => $value) {

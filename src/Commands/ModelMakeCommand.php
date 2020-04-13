@@ -23,7 +23,7 @@ class ModelMakeCommand extends SmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = '';
-        $this->name = 'make:smartmodel';
+        $this->name = 'make:lazymodel';
         $this->description = 'Create a new Smart Model Class';
         $this->stubFile = 'Model';
         $this->nameSpace = '\Models';

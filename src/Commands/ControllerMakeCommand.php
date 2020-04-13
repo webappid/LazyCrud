@@ -29,7 +29,7 @@ abstract class ControllerMakeCommand extends SmartMakeCommand
 
     public function __construct(Filesystem $files)
     {
-        $this->injectList = Config::get('smartbuild.inject.controller');
+        $this->injectList = Config::get('lazycrud.inject.controller');
         parent::__construct($files);
     }
 
@@ -39,7 +39,7 @@ abstract class ControllerMakeCommand extends SmartMakeCommand
 
         $this->folder = Str::pluralStudly(class_basename($this->inputName));
 
-        $route = Config::get('smartbuild.inject.route');
+        $route = Config::get('lazycrud.inject.route');
 
         $routeFile = $this->files->get(base_path('routes/' . $route));
 

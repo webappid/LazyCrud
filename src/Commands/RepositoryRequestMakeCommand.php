@@ -19,7 +19,7 @@ class RepositoryRequestMakeCommand extends SmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'RepositoryRequest';
-        $this->name = 'make:repositoryrequest';
+        $this->name = 'make:lazyrepositoryrequest';
         $this->description = 'Create a new Repository Request Class';
         $this->stubFile = 'RepositoryRequest';
         $this->nameSpace = '\Repositories\Requests';

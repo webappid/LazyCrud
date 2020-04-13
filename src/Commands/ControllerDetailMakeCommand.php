@@ -22,7 +22,7 @@ class ControllerDetailMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'DetailController';
-        $this->name = 'make:controllerdetail';
+        $this->name = 'make:lazycontrollerdetail';
         $this->description = 'Create a new Detail Controller Class';
         $this->stubFile = 'ControllerDetail';
         $this->nameSpace = '\Http\Controllers';
@@ -33,7 +33,7 @@ class ControllerDetailMakeCommand extends ControllerMakeCommand
 
     private function createServiceContract()
     {
-        $this->call('make:smartservice',
+        $this->call('make:lazyservice',
             [
                 "name" => $this->inputName
             ]);
