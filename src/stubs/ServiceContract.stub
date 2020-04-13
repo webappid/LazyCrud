@@ -1,0 +1,64 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+use App\Repositories\DummyClassRepository;
+use App\Repositories\Requests\DummyClassRepositoryRequest;
+use App\Services\Requests\DummyClassServiceRequest;
+use App\Services\Responses\DummyClassServiceResponse;
+use App\Services\Responses\DummyClassServiceResponseList;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassServiceContract
+ * @package DummyNamespace
+ */
+interface DummyClassServiceContract
+{
+    /**
+     * @param DummyClassServiceRequest $dummyClassServiceRequest
+     * @param DummyClassRepositoryRequest $dummyClassRepositoryRequest
+     * @param DummyClassRepository $dummyClassRepository
+     * @param DummyClassServiceResponse $dummyClassServiceResponse
+     * @return DummyClassServiceResponse
+     */
+    public function store(DummyClassServiceRequest $dummyClassServiceRequest, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse;
+
+    /**
+     * @param int $id
+     * @param DummyClassServiceRequest $dummyClassServiceRequest
+     * @param DummyClassRepositoryRequest $dummyClassRepositoryRequest
+     * @param DummyClassRepository $dummyClassRepository
+     * @param DummyClassServiceResponse $dummyClassServiceResponse
+     * @return DummyClassServiceResponse
+     */
+    public function update(int $id, DummyClassServiceRequest $dummyClassServiceRequest, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse;
+
+    /**
+     * @param int $id
+     * @param DummyClassRepository $dummyClassRepository
+     * @param DummyClassServiceResponse $dummyClassServiceResponse
+     * @return DummyClassServiceResponse
+     */
+    public function getById(int $id, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse;
+
+    /**
+     * @param int $id
+     * @param DummyClassRepository $dummyClassRepository
+     * @return bool
+     */
+    public function delete(int $id, DummyClassRepository $dummyClassRepository): bool;
+
+    /**
+     * @param DummyClassRepository $dummyClassRepository
+     * @param int $length
+     * @param DummyClassServiceResponseList $dummyClassServiceResponseList
+     * @return DummyClassServiceResponseList
+     */
+    public function get(DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList,int $length = 12): DummyClassServiceResponseList;
+}

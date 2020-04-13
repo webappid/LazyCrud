@@ -1,0 +1,128 @@
+<?php
+
+namespace Tests\Feature\Integration;
+
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Tests\Repositories\DummyClassRepositoryTest;
+use Tests\SmartTestCase;
+
+class DummyClassIntegrationTest extends SmartTestCase
+{
+    /**
+     * @var DummyClassRepositoryTest
+     */
+    private $dummyClassRepositoryTest;
+
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        try {
+            $this->dummyClassRepositoryTest = $this->container->make(DummyClassRepositoryTest::class);
+        } catch (BindingResolutionException $e) {
+            report($e);
+        }
+    }
+
+    public function testStore()
+    {
+        $dummyClassRepositoryRequest = $this->container->call([$this->dummyClassRepositoryTest, 'getDummy']);
+
+        $route = route('dummyClass.post');
+
+        $payload = (array)$dummyClassRepositoryRequest;
+
+        $user = $this->secure();
+
+        $this->sendToLog('DummyClass Store', $route, $payload);
+
+        $response = $this->actingAs($user)->withHeaders(['Accept' => 'application/json'])->post($route, $payload);
+
+        $this->resultLog($response->getContent());
+
+        $jsonResponse = json_decode($response->getContent());
+
+        self::assertEquals(201, $jsonResponse->code);
+
+        return $jsonResponse;
+    }
+
+    public function testUpdate()
+    {
+        $result = $this->testStore();
+
+        $dummyClassRepositoryRequest = $this->container->call([$this->dummyClassRepositoryTest, 'getDummy']);
+
+        $route = route('dummyClass.update', [$result->data->id]);
+
+        $payload = (array)$dummyClassRepositoryRequest;
+
+        $user = $this->secure();
+
+        $this->sendToLog('DummyClass Update', $route, $payload);
+
+        $response = $this->actingAs($user)->withHeaders(['Accept' => 'application/json'])->post($route, $payload);
+
+        $this->resultLog($response->getContent());
+
+        $jsonResponse = json_decode($response->getContent());
+
+        self::assertEquals(201, $jsonResponse->code);
+    }
+
+    public function testGetById()
+    {
+        $result = $this->testStore();
+
+        $route = route('dummyClass.detail', [$result->data->id]);
+
+        $user = $this->secure();
+
+        $this->sendToLog('DummyClass Detail', $route, []);
+
+        $response = $this->actingAs($user)->withHeaders(['Accept' => 'application/json'])->get($route);
+
+        $this->resultLog($response->getContent());
+
+        $jsonResponse = json_decode($response->getContent());
+
+        self::assertEquals(200, $jsonResponse->code);
+    }
+
+    public function testDelete()
+    {
+        $result = $this->testStore();
+
+        $route = route('dummyClass.delete', [$result->data->id]);
+
+        $user = $this->secure();
+
+        $this->sendToLog('DummyClass Delete', $route, []);
+
+        $response = $this->actingAs($user)->withHeaders(['Accept' => 'application/json'])->get($route);
+
+        $this->resultLog($response->getContent());
+
+        $jsonResponse = json_decode($response->getContent());
+
+        self::assertEquals(201, $jsonResponse->code);
+    }
+
+    public function testIndex()
+    {
+        $this->testStore();
+
+        $route = route('dummyClass.index');
+
+        $user = $this->secure();
+
+        $this->sendToLog('DummyClass Index', $route, []);
+
+        $response = $this->actingAs($user)->withHeaders(['Accept' => 'application/json'])->get($route);
+
+        $this->resultLog($response->getContent());
+
+        $jsonResponse = json_decode($response->getContent());
+
+        self::assertEquals(200, $jsonResponse->code);
+    }
+}

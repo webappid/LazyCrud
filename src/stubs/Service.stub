@@ -1,0 +1,111 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+use App\Repositories\DummyClassRepository;
+use App\Repositories\Requests\DummyClassRepositoryRequest;
+use App\Services\Contracts\DummyClassServiceContract;
+use App\Services\Requests\DummyClassServiceRequest;
+use App\Services\Responses\DummyClassServiceResponse;
+use App\Services\Responses\DummyClassServiceResponseList;
+use WebAppId\DDD\Services\BaseService;
+use WebAppId\DDD\Tools\Lazy;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassService
+ * @package DummyNamespace
+ */
+class DummyClassService extends BaseService implements DummyClassServiceContract
+{
+
+    /**
+     * @inheritDoc
+     */
+    public function store(DummyClassServiceRequest $dummyClassServiceRequest, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse
+    {
+        $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
+
+        $result = $this->getContainer()->call([$dummyClassRepository, 'store'], ['categoryRepositoryRequest' => $dummyClassRepositoryRequest]);
+        if ($result != null) {
+            $dummyClassServiceResponse->setStatus(true);
+            $dummyClassServiceResponse->setMessage('Store Data Success');
+            $dummyClassServiceResponse->category = $result;
+        } else {
+            $dummyClassServiceResponse->setStatus(false);
+            $dummyClassServiceResponse->setMessage('Store Data Failed');
+        }
+
+        return $dummyClassServiceResponse;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(int $id, DummyClassServiceRequest $dummyClassServiceRequest, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse
+    {
+        $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
+
+        $result = $this->getContainer()->call([$dummyClassRepository, 'update'], ['id' => $id, 'categoryRepositoryRequest' => $dummyClassRepositoryRequest]);
+        if ($result != null) {
+            $dummyClassServiceResponse->setStatus(true);
+            $dummyClassServiceResponse->setMessage('Update Data Success');
+            $dummyClassServiceResponse->category = $result;
+        } else {
+            $dummyClassServiceResponse->setStatus(false);
+            $dummyClassServiceResponse->setMessage('Update Data Failed');
+        }
+
+        return $dummyClassServiceResponse;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse
+    {
+        $result = $this->getContainer()->call([$dummyClassRepository, 'getById'], ['id' => $id]);
+        if ($result != null) {
+            $dummyClassServiceResponse->setStatus(true);
+            $dummyClassServiceResponse->setMessage('Data Found');
+            $dummyClassServiceResponse->category = $result;
+        } else {
+            $dummyClassServiceResponse->setStatus(false);
+            $dummyClassServiceResponse->setMessage('Data Not Found');
+        }
+
+        return $dummyClassServiceResponse;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id, DummyClassRepository $dummyClassRepository): bool
+    {
+        return $this->getContainer()->call([$dummyClassRepository, 'delete'], ['id' => $id]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get(DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList, int $length = 12): DummyClassServiceResponseList
+    {
+        $result = $this->getContainer()->call([$dummyClassRepository, 'get']);
+
+        if (count($result) > 0) {
+            $dummyClassServiceResponseList->setStatus(true);
+            $dummyClassServiceResponseList->setMessage('Data Found');
+            $dummyClassServiceResponseList->category = $result;
+        } else {
+            $dummyClassServiceResponseList->setStatus(false);
+            $dummyClassServiceResponseList->setMessage('Data Not Found');
+        }
+
+        return $dummyClassServiceResponseList;
+    }
+}

@@ -1,0 +1,56 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+use App\Models\DummyClass;
+use App\Repositories\Requests\DummyClassRepositoryRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassRepositoryContract
+ * @package DummyNamespace
+ */
+interface DummyClassRepositoryContract
+{
+    /**
+     * @param DummyClassRepositoryRequest $dummyRepositoryClassRequest
+     * @param DummyClass $dummyClass
+     * @return DummyClass|null
+     */
+    public function store(DummyClassRepositoryRequest $dummyRepositoryClassRequest, DummyClass $dummyClass): ?DummyClass;
+
+    /**
+     * @param int $id
+     * @param DummyClassRepositoryRequest $dummyRepositoryClassRequest
+     * @param DummyClass $dummyClass
+     * @return DummyClass|null
+     */
+    public function update(int $id, DummyClassRepositoryRequest $dummyRepositoryClassRequest, DummyClass $dummyClass): ?DummyClass;
+
+    /**
+     * @param int $id
+     * @param DummyClass $dummyClass
+     * @return DummyClass|null
+     */
+    public function getById(int $id, DummyClass $dummyClass): ?DummyClass;
+
+    /**
+     * @param int $id
+     * @param DummyClass $dummyClass
+     * @return bool
+     */
+    public function delete(int $id, DummyClass $dummyClass): bool;
+
+    /**
+     * @param DummyClass $dummyClass
+     * @param int $length
+     * @return LengthAwarePaginator
+     */
+    public function get(DummyClass $dummyClass, int $length = 12): LengthAwarePaginator;
+}

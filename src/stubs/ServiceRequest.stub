@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassServiceRequest
+ * @package DummyNamespace
+ */
+class DummyClassServiceRequest
+{
+    DummyProperty
+}

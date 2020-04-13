@@ -1,0 +1,24 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+use App\Models\DummyClass;
+use WebAppId\DDD\Responses\AbstractResponse;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassServiceResponse
+ * @package DummyNamespace
+ */
+class DummyClassServiceResponse extends AbstractResponse
+{
+    /**
+     * @var DummyClass
+     */
+    public $dummyClass;
+}

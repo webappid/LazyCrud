@@ -1,0 +1,90 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace Tests\Repositories;
+
+use App\Models\DummyClass;
+use App\Repositories\DummyClassRepository;
+use App\Repositories\Requests\DummyClassRepositoryRequest;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Tests\SmartTestCase;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassServiceResponseList
+ * @package DummyNamespace
+ */
+class DummyClassRepositoryTest extends SmartTestCase
+{
+
+    /**
+     * @var DummyClassRepository
+     */
+    private $dummyClassRepository;
+
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        try {
+            $this->dummyClassRepository = $this->container->make(DummyClassRepository::class);
+        } catch (BindingResolutionException $e) {
+            report($e);
+        }
+    }
+
+    public function getDummy(int $no = 0): ?DummyClassRepositoryRequest
+    {
+        $dummy = null;
+        try {
+            $dummy = $this->container->make(DummyClassRepositoryRequest::class);
+            DummyData
+        } catch (BindingResolutionException $e) {
+            report($e);
+        }
+        return $dummy;
+    }
+
+    public function testStore(int $no = 0): ?DummyClass
+    {
+        $dummyClassRepositoryRequest = $this->getDummy($no);
+        $result = $this->container->call([$this->dummyClassRepository, 'store'], ['dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
+        self::assertNotEquals(null, $result);
+        return $result;
+    }
+
+    public function testGetById()
+    {
+        $dummyClass = $this->testStore();
+        $result = $this->container->call([$this->dummyClassRepository, 'getById'], ['id' => $dummyClass->id]);
+        self::assertNotEquals(null, $result);
+    }
+
+    public function testDelete()
+    {
+        $dummyClass = $this->testStore();
+        $result = $this->container->call([$this->dummyClassRepository, 'delete'], ['id' => $dummyClass->id]);
+        self::assertTrue($result);
+    }
+
+    public function testGet()
+    {
+        for ($i = 0; $i < $this->getFaker()->numberBetween(50, $this->getFaker()->numberBetween(50, 100)); $i++) {
+            $this->testStore($i);
+        }
+
+        $resultList = $this->container->call([$this->dummyClassRepository, 'get']);
+        self::assertGreaterThanOrEqual(1, count($resultList));
+    }
+
+    public function testUpdate()
+    {
+        $dummyClass = $this->testStore();
+        $dummyClassRepositoryRequest = $this->getDummy(1);
+        $result = $this->container->call([$this->dummyClassRepository, 'update'], ['id' => $dummyClass->id, 'dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
+        self::assertNotEquals(null, $result);
+    }
+}

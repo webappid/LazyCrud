@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+namespace DummyNamespace;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClass
+ * @package DummyNamespace
+ */
+class DummyClass extends Model
+{
+    protected $table = 'DummyTable';
+    protected $fillable = DummyFillable;
+    protected $hidden = [];
+}

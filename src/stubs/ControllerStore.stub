@@ -1,0 +1,55 @@
+<?php
+/**
+* Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+*/
+namespace DummyNamespace;
+
+use App\Requests\DummyClassRequest;
+use App\Services\DummyClassService;
+use App\Services\Requests\DummyClassServiceRequest;
+use Exception;
+use WebAppId\DDD\Controllers\BaseController;
+use WebAppId\DDD\Tools\Lazy;
+use WebAppId\SmartResponse\Response;
+use WebAppId\SmartResponse\SmartResponse;
+InjectUse
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassStoreController
+ * @package DummyNamespace
+ */
+class DummyClassStoreController extends BaseController
+{
+    /**
+     * @param DummyClassRequest $dummyClassRequest
+     * @param DummyClassServiceRequest $dummyClassServiceRequest
+     * @param DummyClassService $dummyClassService
+     * @param SmartResponse $smartResponse
+     * @param Response $response
+     * @return mixed
+     * @throws Exception
+     */
+    public function __invoke(DummyClassRequest $dummyClassRequest,
+                             DummyClassServiceRequest $dummyClassServiceRequest,
+                             DummyClassService $dummyClassService,
+                             SmartResponse $smartResponse,
+                             Response $response)
+    {
+        $dummyClassValidated = $dummyClassRequest->validated();
+
+        $dummyClassServiceRequest = Lazy::copyFromArray($dummyClassValidated, $dummyClassServiceRequest, Lazy::AUTOCAST);
+
+        InjectData
+        $result = $this->getContainer()->call([$dummyClassService, 'store'], ['dummyClassServiceRequest' => $dummyClassServiceRequest]);
+
+        if ($result->isStatus()) {
+            $response->setData($result->dummyClass);
+            return $smartResponse->saveDataSuccess($response);
+        } else {
+            return $smartResponse->saveDataFailed($response);
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "name": "webappid/lazycrud",
+    "description": "Create a Lazy CRUD For Laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dyan Galih",
+            "email": "dyan.galih@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "WebAppId\\LazyCrud\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=7.2.0",
+        "illuminate/support": "^6.0|^7.0",
+        "webappid/laravel-user": "^3.0",
+        "webappid/smartresponse": "^1.1",
+        "webappid/laravel-ddd": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0|^8.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "WebAppId\\LazyCrud\\ServiceProvider"
+            ],
+            "aliases": {
+                "Content": "WebAppId\\LazyCrud\\Facade"
+            }
+        }
+    }
+}

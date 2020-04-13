@@ -1,0 +1,85 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+use Illuminate\Database\QueryException;
+use Illuminate\Pagination\LengthAwarePaginator;
+use WebAppId\DDD\Tools\Lazy;
+use App\Repositories\Contracts\DummyClassRepositoryContract;
+use App\Models\DummyClass;
+use App\Repositories\Requests\DummyClassRepositoryRequest;
+
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassRepository
+ * @package DummyNamespace
+ */
+class DummyClassRepository implements DummyClassRepositoryContract
+{
+    /**
+     * @inheritDoc
+     */
+    public function store(DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClass $dummyClass): ?DummyClass
+    {
+        try {
+            $dummyClass = Lazy::copy($dummyClassRepositoryRequest, $dummyClass);
+            $dummyClass->save();
+            return $dummyClass;
+        } catch (QueryException $queryException) {
+            report($queryException);
+            return null;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(int $id, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClass $dummyClass): ?DummyClass
+    {
+        $dummyClass = $this->getById($id, $dummyClass);
+        if($dummyClass!=null){
+            try {
+                $dummyClass = Lazy::copy($dummyClassRepositoryRequest, $dummyClass);
+                $dummyClass->save();
+                return $dummyClass;
+            }catch (QueryException $queryException){
+                report($queryException);
+            }
+        }
+        return $dummyClass;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id, DummyClass $dummyClass): ?DummyClass
+    {
+        return $dummyClass->find($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id, DummyClass $dummyClass): bool
+    {
+        $dummyClass = $this->getById($id, $dummyClass);
+        if($dummyClass!=null){
+            return $dummyClass->delete();
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function get(DummyClass $dummyClass, int $length = 12): LengthAwarePaginator
+    {
+        return $dummyClass->paginate($length);
+    }
+}

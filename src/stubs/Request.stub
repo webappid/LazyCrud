@@ -1,0 +1,26 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+use WebAppId\DDD\Requests\AbstractFormRequest;
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassService
+ * @package DummyNamespace
+ */
+
+class DummyClassRequest extends AbstractFormRequest
+{
+    /**
+     * @inheritDoc
+     */
+    function rules(): array
+    {
+        return RulesData;
+    }
+}
