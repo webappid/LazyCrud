@@ -21,5 +21,7 @@ php artisan vendor:publish --provider="WebAppId\LazyCrud\ServiceProvider"
 * Run the artisan command to create a CRUD
 
 ```
-php artisan make:lazycrud Category
+php artisan make:lazycrud ClassNameModel
 ```
+
+ClassNameModel = Change itu Class name for Model in laravel
