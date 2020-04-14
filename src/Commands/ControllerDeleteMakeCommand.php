@@ -56,7 +56,7 @@ class ControllerDeleteMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/'.$this->lower.'/{id}/delete\', \\'.$this->folder.'\\'.$this->inputName.'DeleteController::class)->name(\''.$this->lower.'.delete\');
+Route::get(\'/'.$this->lower.'/{id}/delete\', \\'.$this->folder.'\\'.$this->inputName.'DeleteController::class)->name(\'lazy.'.$this->lower.'.delete\');
 ';
     }
 }

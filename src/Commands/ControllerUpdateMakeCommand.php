@@ -75,7 +75,7 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::post(\'/' . $this->lower . '/{id}/update\', \\' . $this->folder . '\\' . $this->inputName . 'UpdateController::class)->name(\'' . $this->lower . '.update\');
+Route::post(\'/' . $this->lower . '/{id}/update\', \\' . $this->folder . '\\' . $this->inputName . 'UpdateController::class)->name(\'lazy.' . $this->lower . '.update\');
 ';
     }
 }

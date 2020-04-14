@@ -71,7 +71,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::post(\'/' . $this->lower . '\', \\' . $this->folder . '\\' . $this->inputName . 'StoreController::class)->name(\'' . $this->lower . '.post\');
+Route::post(\'/' . $this->lower . '\', \\' . $this->folder . '\\' . $this->inputName . 'StoreController::class)->name(\'lazy.' . $this->lower . '.post\');
 ';
     }
 }

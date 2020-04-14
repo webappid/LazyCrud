@@ -55,7 +55,7 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/'.$this->lower.'\', \\'.$this->folder.'\\'.$this->inputName.'IndexController::class)->name(\''.$this->lower.'.index\');
+Route::get(\'/'.$this->lower.'\', \\'.$this->folder.'\\'.$this->inputName.'IndexController::class)->name(\'lazy.'.$this->lower.'.index\');
 ';
     }
 }

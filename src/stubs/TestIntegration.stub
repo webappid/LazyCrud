@@ -27,7 +27,7 @@ class DummyClassIntegrationTest extends SmartTestCase
     {
         $dummyClassRepositoryRequest = $this->container->call([$this->dummyClassRepositoryTest, 'getDummy']);
 
-        $route = route('dummyClass.post');
+        $route = route('lazy.dummyClass.post');
 
         $payload = (array)$dummyClassRepositoryRequest;
 
@@ -52,7 +52,7 @@ class DummyClassIntegrationTest extends SmartTestCase
 
         $dummyClassRepositoryRequest = $this->container->call([$this->dummyClassRepositoryTest, 'getDummy']);
 
-        $route = route('dummyClass.update', [$result->data->id]);
+        $route = route('lazy.dummyClass.update', [$result->data->id]);
 
         $payload = (array)$dummyClassRepositoryRequest;
 
@@ -73,7 +73,7 @@ class DummyClassIntegrationTest extends SmartTestCase
     {
         $result = $this->testStore();
 
-        $route = route('dummyClass.detail', [$result->data->id]);
+        $route = route('lazy.dummyClass.detail', [$result->data->id]);
 
         $user = $this->secure();
 
@@ -92,7 +92,7 @@ class DummyClassIntegrationTest extends SmartTestCase
     {
         $result = $this->testStore();
 
-        $route = route('dummyClass.delete', [$result->data->id]);
+        $route = route('lazy.dummyClass.delete', [$result->data->id]);
 
         $user = $this->secure();
 
@@ -111,7 +111,7 @@ class DummyClassIntegrationTest extends SmartTestCase
     {
         $this->testStore();
 
-        $route = route('dummyClass.index');
+        $route = route('lazy.dummyClass.index');
 
         $user = $this->secure();
 

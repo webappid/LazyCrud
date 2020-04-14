@@ -56,7 +56,7 @@ class ControllerDetailMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/'.$this->lower.'/{id}\', \\'.$this->folder.'\\'.$this->inputName.'DetailController::class)->name(\''.$this->lower.'.detail\');
+Route::get(\'/'.$this->lower.'/{id}\', \\'.$this->folder.'\\'.$this->inputName.'DetailController::class)->name(\'lazy.'.$this->lower.'.detail\');
 ';
     }
 }

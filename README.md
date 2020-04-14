@@ -40,9 +40,9 @@ ClassNameModel = Change ClassNameModel With Class Model in laravel
 php artisan make:lazycrud ClassNameModel --inject-route=route_file_name
 ```
 example: 
-    php artisan make:lazycrud Lazy --inject-route=api.php
+    php artisan lazy:crud Lazy --inject-route=web.php
 
-The CRUD route will inject to api.php file    
+The lazy tools will create route called lazy-{route_name}.php and all route CRUD will added in this file. 
 
 * Custom inject route on the config/lazycrud.php
 
@@ -60,5 +60,15 @@ return [
     ]
 ];
 ```
+* if you need to reformat the lazy route run this script:
+
+```
+php artisan lazy:format
+```
+
+* Format other route just add an option --route
+```
+php artisan lazy:format --route=api
+``` 
 
 If you have any problem to use this package, please don't hesitate to drop me and email at dyan.galih@gmail.com or chat me directly @DyanGalih on Telegram

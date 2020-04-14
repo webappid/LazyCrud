@@ -4,6 +4,7 @@
 namespace WebAppId\LazyCrud;
 
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -49,10 +50,19 @@ abstract class ControllerMakeCommand extends SmartMakeCommand
 
         $this->folder = Str::pluralStudly(class_basename($this->inputName));
 
-        $routeFile = $this->files->get(base_path('routes/' . $route));
+        try {
+            $routeFile = $this->files->get(base_path('routes/lazy-' . $route));
+        } catch (FileNotFoundException $e) {
+            $routeFile = "<?php
+/**
+* Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+*/
+
+";
+        }
 
         $routeFile .= $this->injectRouter();
 
-        $this->files->put('routes/' . $route, $routeFile);
+        $this->files->put('routes/lazy-' . $route, $routeFile);
     }
 }

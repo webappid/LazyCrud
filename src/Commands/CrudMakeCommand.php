@@ -3,7 +3,9 @@
 
 namespace WebAppId\LazyCrud;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Route;
 
 /**
  * @author: Dyan Galih<dyan.galih@gmail.com>
@@ -21,7 +23,7 @@ class CrudMakeCommand extends TestSmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'IntegrationTest';
-        $this->signature = 'make:lazycrud {name} {--inject-route=}';
+        $this->signature = 'lazy:crud {name} {--inject-route=}';
         $this->description = 'Create a new CRUD';
         $this->stubFile = 'TestIntegration';
         $this->nameSpace = '\Feature\Integrations';
@@ -73,7 +75,6 @@ class CrudMakeCommand extends TestSmartMakeCommand
             ]);
     }
 
-
     function prevHandle()
     {
         $this->createControllerData();
@@ -81,6 +82,7 @@ class CrudMakeCommand extends TestSmartMakeCommand
         $this->createControllerDelete();
         $this->createControllerStore();
         $this->createControllerUpdate();
+
     }
 
     function replaceClassCustom(string $stub)
@@ -90,6 +92,21 @@ class CrudMakeCommand extends TestSmartMakeCommand
 
     function closeHandle()
     {
-        // TODO: Implement closeHandle() method.
+        if ($this->option('inject-route') != null) {
+            $route = $this->option('inject-route');
+        } else {
+            $route = 'web';
+        }
+        $fileSystem = new Filesystem();
+        try {
+            $routeData = $fileSystem->get('routes/' . $route . '.php');
+        } catch (FileNotFoundException $e) {
+        }
+        $includeFile = 'require_once "lazy-' . $route . '.php";';
+        if (!strpos($routeData, $includeFile)) {
+            $routeData .= '
+require "lazy-web.php";';
+            $fileSystem->put('routes/' . $route . '.php', $routeData);
+        }
     }
 }

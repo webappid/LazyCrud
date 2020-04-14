@@ -28,6 +28,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->commands(TestRepositoryMakeCommand::class);
         $this->commands(TestServiceMakeCommand::class);
         $this->commands(TestSmartTestCaseMakeCommand::class);
+        $this->commands(RouteFormatMakeCommand::class);
     }
 
     public function boot()
