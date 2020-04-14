@@ -29,6 +29,11 @@ abstract class ControllerMakeCommand extends SmartMakeCommand
     protected $injectRoute = null;
 
     /**
+     * @var bool
+     */
+    protected $auth = false;
+
+    /**
      * @var array
      */
     protected $injectList;
@@ -60,8 +65,16 @@ abstract class ControllerMakeCommand extends SmartMakeCommand
 
 ";
         }
-
+        if ($this->auth) {
+            $middleware = str_replace('.php', '', $route);
+            $routeFile .= "
+Route::middleware('auth" . ($middleware == 'api' ? ':api' : '') . "')->group(function(){";
+        }
         $routeFile .= $this->injectRouter();
+        if ($this->auth) {
+            $routeFile .= "
+});";
+        }
 
         $this->files->put('routes/lazy-' . $route, $routeFile);
     }

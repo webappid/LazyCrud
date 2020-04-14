@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
  */
 class CrudMakeCommand extends TestSmartMakeCommand
 {
+
+    /**
+     * @var array
+     */
+    private $options = [];
+
     /**
      * ModelMakeCommand constructor.
      * @param Filesystem $files
@@ -23,7 +29,7 @@ class CrudMakeCommand extends TestSmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'IntegrationTest';
-        $this->signature = 'lazy:crud {name} {--inject-route=}';
+        $this->signature = 'lazy:crud {name} {--inject-route=} {{--auth}}';
         $this->description = 'Create a new CRUD';
         $this->stubFile = 'TestIntegration';
         $this->nameSpace = '\Feature\Integrations';
@@ -33,56 +39,48 @@ class CrudMakeCommand extends TestSmartMakeCommand
     private function createControllerData()
     {
         $this->call('make:lazycontrollerindex',
-            [
-                "name" => $this->inputName,
-                "--inject-route" => $this->option('inject-route')
-            ]);
+            $this->options);
     }
 
     private function createControllerDetail()
     {
         $this->call('make:lazycontrollerdetail',
-            [
-                "name" => $this->inputName,
-                "--inject-route" => $this->option('inject-route')
-            ]);
+            $this->options);
     }
 
     private function createControllerDelete()
     {
         $this->call('make:lazycontrollerdelete',
-            [
-                "name" => $this->inputName,
-                "--inject-route" => $this->option('inject-route')
-            ]);
+            $this->options);
     }
 
     private function createControllerStore()
     {
         $this->call('make:lazycontrollerstore',
-            [
-                "name" => $this->inputName,
-                "--inject-route" => $this->option('inject-route')
-            ]);
+            $this->options);
     }
 
     private function createControllerUpdate()
     {
         $this->call('make:lazycontrollerupdate',
-            [
-                "name" => $this->inputName,
-                "--inject-route" => $this->option('inject-route')
-            ]);
+            $this->options);
     }
 
     function prevHandle()
     {
+        $this->options = [
+            "name" => $this->inputName,
+            "--inject-route" => $this->option('inject-route')
+        ];
+
+        if ($this->option('auth')) {
+            $this->options["--auth"] = $this->option('auth');
+        }
         $this->createControllerData();
         $this->createControllerDetail();
         $this->createControllerDelete();
         $this->createControllerStore();
         $this->createControllerUpdate();
-
     }
 
     function replaceClassCustom(string $stub)
@@ -101,8 +99,9 @@ class CrudMakeCommand extends TestSmartMakeCommand
         try {
             $routeData = $fileSystem->get('routes/' . $route . '.php');
         } catch (FileNotFoundException $e) {
+            report($e);
         }
-        $includeFile = 'require_once "lazy-' . $route . '.php";';
+        $includeFile = 'require "lazy-' . $route . '.php";';
         if (!strpos($routeData, $includeFile)) {
             $routeData .= '
 require "lazy-web.php";';

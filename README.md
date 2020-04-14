@@ -30,14 +30,19 @@ default Timezone "UTC"
 * Run the artisan command to create a CRUD
 
 ```
-php artisan make:lazycrud ClassNameModel
+php artisan lazy:crud ClassNameModel
+```
+* Add auth in route
+
+```
+php artisan lazy:crud ClassNameModel --auth
 ```
 
 ClassNameModel = Change ClassNameModel With Class Model in laravel
 
 * Change destination route inject on artisan run with add --inject-route option
 ```
-php artisan make:lazycrud ClassNameModel --inject-route=route_file_name
+php artisan lazy:crud ClassNameModel --inject-route=route_file_name
 ```
 example: 
     php artisan lazy:crud Lazy --inject-route=web.php
