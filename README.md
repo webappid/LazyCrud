@@ -65,7 +65,7 @@ return [
     ]
 ];
 ```
-* if you need to reformat the lazy route run this script:
+* All generated route will store to routes/lazy-web.php, to make it beauty script, run this command
 
 ```
 php artisan lazy:format
