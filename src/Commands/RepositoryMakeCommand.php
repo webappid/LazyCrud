@@ -25,7 +25,6 @@ class RepositoryMakeCommand extends SmartMakeCommand
         $this->description = 'Create a new Repository Class';
         $this->stubFile = 'Repository';
         $this->nameSpace = '\Repositories';
-        $this->hidden = true;
         parent::__construct($files);
     }
 
@@ -39,7 +38,7 @@ class RepositoryMakeCommand extends SmartMakeCommand
 
     private function createRepositoryTest()
     {
-        $this->call('lazy:repository',
+        $this->call('lazy:testrepository',
             [
                 "name" => $this->inputName
             ]);

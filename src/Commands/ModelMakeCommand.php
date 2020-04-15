@@ -27,7 +27,6 @@ class ModelMakeCommand extends SmartMakeCommand
         $this->description = 'Create a new Model Class';
         $this->stubFile = 'Model';
         $this->nameSpace = '\Models';
-        $this->hidden = true;
         parent::__construct($files);
     }
 
