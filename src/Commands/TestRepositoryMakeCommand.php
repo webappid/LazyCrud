@@ -23,7 +23,7 @@ class TestRepositoryMakeCommand extends TestSmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'RepositoryTest';
-        $this->name = 'make:lazytestrepository';
+        $this->name = 'lazy:repository';
         $this->description = 'Create a new Test Repository Class';
         $this->stubFile = 'TestRepository';
         $this->nameSpace = '\Unit\Repositories';
@@ -33,7 +33,7 @@ class TestRepositoryMakeCommand extends TestSmartMakeCommand
 
     private function createServiceContract()
     {
-        $this->call('make:lazytestsmarttestcase',
+        $this->call('lazy:testsmarttestcase',
             [
                 "name" => 'Smart'
             ]);

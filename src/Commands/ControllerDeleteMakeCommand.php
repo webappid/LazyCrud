@@ -22,7 +22,7 @@ class ControllerDeleteMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'DeleteController';
-        $this->signature = 'make:lazycontrollerdelete {name} {--inject-route=} {{--auth}}';
+        $this->signature = 'lazy:controllerdelete {name} {--inject-route=} {{--auth}}';
         $this->description = 'Create a new Delete Controller Class';
         $this->stubFile = 'ControllerDelete';
         $this->nameSpace = '\Http\Controllers';
@@ -33,7 +33,7 @@ class ControllerDeleteMakeCommand extends ControllerMakeCommand
 
     private function createServiceContract()
     {
-        $this->call('make:lazyservice',
+        $this->call('lazy:service',
             [
                 "name" => $this->inputName
             ]);

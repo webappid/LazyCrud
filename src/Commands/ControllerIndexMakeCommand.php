@@ -22,7 +22,7 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'IndexController';
-        $this->signature = 'make:lazycontrollerindex {name} {--inject-route=} {{--auth}}';
+        $this->signature = 'lazy:controllerindex {name} {--inject-route=} {{--auth}}';
         $this->description = 'Create a new Index Controller Class';
         $this->stubFile = 'ControllerIndex';
         $this->nameSpace = '\Http\Controllers';
@@ -33,7 +33,7 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
 
     private function createServiceContract()
     {
-        $this->call('make:lazyservice',
+        $this->call('lazy:service',
             [
                 "name" => $this->inputName
             ]);

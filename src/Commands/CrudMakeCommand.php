@@ -38,31 +38,31 @@ class CrudMakeCommand extends TestSmartMakeCommand
 
     private function createControllerData()
     {
-        $this->call('make:lazycontrollerindex',
+        $this->call('lazy:controllerindex',
             $this->options);
     }
 
     private function createControllerDetail()
     {
-        $this->call('make:lazycontrollerdetail',
+        $this->call('lazy:controllerdetail',
             $this->options);
     }
 
     private function createControllerDelete()
     {
-        $this->call('make:lazycontrollerdelete',
+        $this->call('lazy:controllerdelete',
             $this->options);
     }
 
     private function createControllerStore()
     {
-        $this->call('make:lazycontrollerstore',
+        $this->call('lazy:controllerstore',
             $this->options);
     }
 
     private function createControllerUpdate()
     {
-        $this->call('make:lazycontrollerupdate',
+        $this->call('lazy:controllerupdate',
             $this->options);
     }
 

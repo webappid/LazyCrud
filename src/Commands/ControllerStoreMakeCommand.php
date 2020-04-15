@@ -23,7 +23,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'StoreController';
-        $this->signature = 'make:lazycontrollerstore {name} {--inject-route=} {{--auth}}';
+        $this->signature = 'lazy:controllerstore {name} {--inject-route=} {{--auth}}';
         $this->description = 'Create a new Store Controller Class';
         $this->stubFile = 'ControllerStore';
         $this->nameSpace = '\Http\Controllers';
@@ -34,7 +34,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
 
     private function createRequest()
     {
-        $this->call('make:lazyrequest',
+        $this->call('lazy:request',
             [
                 "name" => $this->inputName
             ]);
@@ -42,7 +42,7 @@ class ControllerStoreMakeCommand extends ControllerMakeCommand
 
     private function createServiceContract()
     {
-        $this->call('make:lazyservice',
+        $this->call('lazy:service',
             [
                 "name" => $this->inputName
             ]);

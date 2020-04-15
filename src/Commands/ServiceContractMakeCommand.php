@@ -17,7 +17,7 @@ class ServiceContractMakeCommand extends SmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'ServiceContract';
-        $this->name = 'make:lazyservicecontract';
+        $this->name = 'lazy:servicecontract';
         $this->description = 'Create a new service contract interface';
         $this->stubFile = 'ServiceContract';
         $this->nameSpace = '\Services\Contracts';
@@ -27,7 +27,7 @@ class ServiceContractMakeCommand extends SmartMakeCommand
 
     private function createRepository()
     {
-        $this->call('make:lazyrepository',
+        $this->call('lazy:repository',
             [
                 "name" => $this->inputName
             ]);
@@ -35,7 +35,7 @@ class ServiceContractMakeCommand extends SmartMakeCommand
 
     private function createServiceRequest()
     {
-        $this->call('make:lazyservicerequest',
+        $this->call('lazy:servicerequest',
             [
                 "name" => $this->inputName
             ]);
@@ -43,7 +43,7 @@ class ServiceContractMakeCommand extends SmartMakeCommand
 
     private function createServiceResponse()
     {
-        $this->call('make:lazyserviceresponse',
+        $this->call('lazy:serviceresponse',
             [
                 "name" => $this->inputName
             ]);
@@ -51,7 +51,7 @@ class ServiceContractMakeCommand extends SmartMakeCommand
 
     private function createServiceResponseList()
     {
-        $this->call('make:lazyserviceresponselist',
+        $this->call('lazy:serviceresponselist',
             [
                 "name" => $this->inputName
             ]);

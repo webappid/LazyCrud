@@ -18,7 +18,7 @@ class ServiceResponseListMakeCommand extends SmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'ServiceResponseList';
-        $this->name = 'make:lazyserviceresponselist';
+        $this->name = 'lazy:serviceresponselist';
         $this->description = 'Create a new Service Response List Class';
         $this->stubFile = 'ServiceResponseList';
         $this->nameSpace = '\Services\Responses';

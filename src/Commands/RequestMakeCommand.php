@@ -19,7 +19,7 @@ class RequestMakeCommand extends SmartMakeCommand
     public function __construct(Filesystem $files)
     {
         $this->classNameSuffix = 'Request';
-        $this->name = 'make:lazyrequest';
+        $this->name = 'lazy:request';
         $this->description = 'Create a new Request Class';
         $this->stubFile = 'Request';
         $this->nameSpace = '\Requests';
