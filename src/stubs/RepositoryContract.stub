@@ -53,4 +53,26 @@ interface DummyClassRepositoryContract
      * @return LengthAwarePaginator
      */
     public function get(DummyClass $dummyClass, int $length = 12): LengthAwarePaginator;
+
+    /**
+     * @param DummyClass $dummyClass
+     * @return int
+     */
+    public function getCount(DummyClass $dummyClass): int;
+
+    /**
+     * @param string $q
+     * @param DummyClass $dummyClass
+     * @param int $length
+     * @return LengthAwarePaginator
+     */
+    public function getWhere(string $q, DummyClass $dummyClass, int $length = 12): LengthAwarePaginator;
+
+    /**
+     * @param string $q
+     * @param DummyClass $dummyClass
+     * @param int $length
+     * @return LengthAwarePaginator
+     */
+    public function getWhereCount(string $q, DummyClass $dummyClass, int $length = 12): LengthAwarePaginator;
 }

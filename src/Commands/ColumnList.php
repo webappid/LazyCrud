@@ -23,6 +23,11 @@ trait ColumnList
      */
     protected $propertiesModel;
 
+    /**
+     * @var string
+     */
+    protected $secondColumn = null;
+
     protected function getFaker()
     {
         return Faker::create('id_ID');
@@ -41,7 +46,7 @@ trait ColumnList
 
         $property = "";
 
-        if(count($resultList)>0) {
+        if (count($resultList) > 0) {
             if ($resultList[0]->EXTRA == 'auto_increment') {
                 $autoincrementColumn = $resultList[0]->COLUMN_NAME;
             } else {
@@ -59,6 +64,10 @@ trait ColumnList
                     }
                 }
                 if ($columnName != 'created_at' && $columnName != 'updated_at' && $autoincrementColumn != $columnName) {
+                    if($this->secondColumn == null){
+                        $this->secondColumn = $columnName;
+                    }
+
                     $type = Schema::connection(null)->getColumnType($table, $columnName);
 
                     switch ($type) {
@@ -109,9 +118,11 @@ trait ColumnList
                 ';
                             break;
                         case 3:
-
                             $property .= '$dummy->' . $columnName . ' = ' . $fakerData . ';
             ';
+                            break;
+                        default:
+                            $propertyList[] = "'" . $table . '.' . $columnName . "'";
                             break;
                     }
                 }
@@ -120,10 +131,17 @@ trait ColumnList
 
             if ($i == 1) {
                 $property = '[
-            ' .
-                    implode(',
+            ' . implode(',
             ', $propertyList) . '
          ]';
+            } elseif ($i == 4) {
+                $propertyList[] = "'" . $table . '.' . $autoincrementColumn . "'";
+                $propertyList[] = "'" . $table . ".created_at'";
+                $propertyList[] = "'" . $table . ".updated_at'";
+                $property = '
+                ' . implode(',
+                ', $propertyList) . '
+                ';
             }
         }
 

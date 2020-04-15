@@ -14,6 +14,9 @@ use Illuminate\Filesystem\Filesystem;
  */
 class RepositoryMakeCommand extends SmartMakeCommand
 {
+
+    use ColumnList;
+
     /**
      * RepositoryMakeCommand constructor.
      * @param Filesystem $files
@@ -52,7 +55,12 @@ class RepositoryMakeCommand extends SmartMakeCommand
 
     function replaceClassCustom(string $stub)
     {
-        return $stub;
+        $this->propertiesModel = 4;
+        $column = $this->getColumnProperties($this->inputName);
+        if ($this->secondColumn != null) {
+            $stub = str_replace('searchColumn', $this->secondColumn, $stub);
+        }
+        return str_replace('ColumnList', $column, $stub);
     }
 
     function closeHandle()

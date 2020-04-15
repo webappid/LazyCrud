@@ -36,6 +36,12 @@ class DummyClassRepository implements DummyClassRepositoryContract
         }
     }
 
+    protected function getColumn($content)
+    {
+        return $content
+            ->select(ColumnList);
+    }
+
     /**
      * @inheritDoc
      */
@@ -59,7 +65,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     public function getById(int $id, DummyClass $dummyClass): ?DummyClass
     {
-        return $dummyClass->find($id);
+        return $this->getColumn($dummyClass)->find($id);
     }
 
     /**
@@ -80,6 +86,34 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     public function get(DummyClass $dummyClass, int $length = 12): LengthAwarePaginator
     {
-        return $dummyClass->paginate($length);
+        return $this->getColumn($dummyClass)->paginate($length);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCount(DummyClass $dummyClass): int
+    {
+        return $dummyClass->count();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWhere(string $q, DummyClass $dummyClass, int $length = 12): LengthAwarePaginator
+    {
+        return $this->getColumn($dummyClass)
+            ->where('searchColumn', 'LIKE', '%' . $q . '%')
+            ->paginate($length);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWhereCount(string $q, DummyClass $dummyClass, int $length = 12): LengthAwarePaginator
+    {
+        return $dummyClass
+            ->where('searchColumn', 'LIKE', '%' . $q . '%')
+            ->count();
     }
 }
