@@ -110,7 +110,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
     /**
      * @inheritDoc
      */
-    public function getWhereCount(string $q, DummyClass $dummyClass, int $length = 12): LengthAwarePaginator
+    public function getWhereCount(string $q, DummyClass $dummyClass, int $length = 12): int
     {
         return $dummyClass
             ->where('searchColumn', 'LIKE', '%' . $q . '%')

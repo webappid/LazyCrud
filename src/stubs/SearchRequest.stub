@@ -1,0 +1,26 @@
+<?php
+/**
+ * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
+ */
+
+namespace DummyNamespace;
+
+use WebAppId\DDD\Requests\AbstractFormRequest;
+/**
+ * @author: DummyAuthor
+ * Date: DummyDate
+ * Time: DummyTime
+ * Class DummyClassService
+ * @package DummyNamespace
+ */
+
+class DummyClassSearchRequest extends AbstractFormRequest
+{
+    function rules():array
+    {
+        return [
+            'q' => 'string|nullable|max:255',
+            'search' => 'array|nullable|max:255',
+        ];
+    }
+}

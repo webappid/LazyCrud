@@ -64,9 +64,9 @@ class DummyClassServiceTest extends SmartTestCase
         return Lazy::copy($dummyClassRepositoryRequest, $dummyClassServiceRequest);
     }
 
-    public function testStore()
+    public function testStore(int $number = 0)
     {
-        $dummyClassServiceRequest = $this->getDummy();
+        $dummyClassServiceRequest = $this->getDummy($number);
         $result = $this->container->call([$this->dummyClassService, 'store'], ['dummyClassServiceRequest' => $dummyClassServiceRequest]);
         self::assertTrue($result->isStatus());
         return $result;
@@ -94,5 +94,27 @@ class DummyClassServiceTest extends SmartTestCase
         $contentServiceResponse = $this->testStore();
         $result = $this->container->call([$this->dummyClassService, 'delete'], ['id' => $contentServiceResponse->dummyClass->id]);
         self::assertTrue($result);
+    }
+
+    public function testGetWhere()
+    {
+        for ($i = 0; $i < $this->getFaker()->numberBetween(50, $this->getFaker()->numberBetween(50, 100)); $i++) {
+            $this->testStore($i);
+        }
+        $string = 'aiueo';
+        $q = $string[$this->getFaker()->numberBetween(0, strlen($string) - 1)];
+        $result = $this->container->call([$this->dummyClassService, 'getWhere'], ['q' => $q]);
+        self::assertTrue($result->isStatus());
+    }
+
+    public function testGetWhereCount()
+    {
+        for ($i = 0; $i < $this->getFaker()->numberBetween(50, $this->getFaker()->numberBetween(50, 100)); $i++) {
+            $this->testStore($i);
+        }
+        $string = 'aiueo';
+        $q = $string[$this->getFaker()->numberBetween(0, strlen($string) - 1)];
+        $result = $this->container->call([$this->dummyClassService, 'getWhereCount'], ['q' => $q]);
+        self::assertGreaterThanOrEqual(1, $result);
     }
 }

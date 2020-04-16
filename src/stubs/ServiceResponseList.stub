@@ -21,4 +21,14 @@ class DummyClassServiceResponseList extends AbstractResponse
      * @var LengthAwarePaginator
      */
     public $dummyClassList;
+
+    /**
+     * @var int
+     */
+    public $countWhere;
+
+    /**
+     * @var int
+     */
+    public $countAll;
 }

@@ -31,7 +31,7 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
         parent::__construct($files);
     }
 
-    private function createServiceContract()
+    private function createService()
     {
         $this->call('lazy:service',
             [
@@ -39,15 +39,25 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
             ]);
     }
 
+    private function createSearchRequest()
+    {
+        $this->call('lazy:searchrequest',
+            [
+                "name" => $this->inputName
+            ]);
+    }
+
     function prevHandle()
     {
-        if($this->option('inject-route')){
+        if ($this->option('inject-route')) {
             $this->injectRoute = $this->option('inject-route');
         }
-        if($this->option('auth')){
+        if ($this->option('auth')) {
             $this->auth = true;
         }
-        $this->createServiceContract();
+        $this->createService();
+
+        $this->createSearchRequest();
     }
 
     function replaceClassCustom(string $stub)
@@ -58,7 +68,7 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/'.$this->lower.'\', \\'.$this->folder.'\\'.$this->inputName.'IndexController::class)->name(\'lazy.'.$this->lower.'.index\');
+Route::get(\'/' . $this->lower . '\', \\' . $this->folder . '\\' . $this->inputName . 'IndexController::class)->name(\'lazy.' . $this->lower . '.index\');
 ';
     }
 }

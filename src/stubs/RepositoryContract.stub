@@ -72,7 +72,7 @@ interface DummyClassRepositoryContract
      * @param string $q
      * @param DummyClass $dummyClass
      * @param int $length
-     * @return LengthAwarePaginator
+     * @return int
      */
-    public function getWhereCount(string $q, DummyClass $dummyClass, int $length = 12): LengthAwarePaginator;
+    public function getWhereCount(string $q, DummyClass $dummyClass, int $length = 12): int;
 }

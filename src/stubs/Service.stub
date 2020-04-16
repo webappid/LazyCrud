@@ -101,11 +101,47 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
             $dummyClassServiceResponseList->setStatus(true);
             $dummyClassServiceResponseList->setMessage('Data Found');
             $dummyClassServiceResponseList->dummyClass = $result;
+            $dummyClassServiceResponseList->countAll = $this->getContainer()->call([$dummyClassRepository, 'getCount']);
         } else {
             $dummyClassServiceResponseList->setStatus(false);
             $dummyClassServiceResponseList->setMessage('Data Not Found');
         }
 
         return $dummyClassServiceResponseList;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCount(DummyClassRepository $dummyClassRepository): int
+    {
+        return $this->getContainer()->call([$dummyClassRepository, 'getCount']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWhere(string $q, DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList, int $length = 12): DummyClassServiceResponseList
+    {
+        $result = $this->getContainer()->call([$dummyClassRepository, 'getWhere'], ['q' => $q]);
+        if (count($result) > 0) {
+            $dummyClassServiceResponseList->setStatus(true);
+            $dummyClassServiceResponseList->setMessage('Data Found');
+            $dummyClassServiceResponseList->dummyClassList = $result;
+            $dummyClassServiceResponseList->countAll = $this->getContainer()->call([$dummyClassRepository, 'getCount']);
+            $dummyClassServiceResponseList->countWhere = $this->getContainer()->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
+        } else {
+            $dummyClassServiceResponseList->setStatus(false);
+            $dummyClassServiceResponseList->setMessage('Data Not Found');
+        }
+        return $dummyClassServiceResponseList;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWhereCount(string $q, DummyClassRepository $dummyClassRepository): int
+    {
+        return $this->getContainer()->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
     }
 }

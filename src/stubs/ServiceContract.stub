@@ -61,4 +61,26 @@ interface DummyClassServiceContract
      * @return DummyClassServiceResponseList
      */
     public function get(DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList,int $length = 12): DummyClassServiceResponseList;
+
+    /**
+     * @param DummyClassRepository $dummyClassRepository
+     * @return int
+     */
+    public function getCount(DummyClassRepository $dummyClassRepository):int;
+
+    /**
+     * @param string $q
+     * @param DummyClassRepository $dummyClassRepository
+     * @param DummyClassServiceResponseList $dummyClassServiceResponseList
+     * @param int $length
+     * @return DummyClassServiceResponseList
+     */
+    public function getWhere(string $q, DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList,int $length = 12): DummyClassServiceResponseList;
+
+    /**
+     * @param string $q
+     * @param DummyClassRepository $dummyClassRepository
+     * @return int
+     */
+    public function getWhereCount(string $q, DummyClassRepository $dummyClassRepository):int;
 }

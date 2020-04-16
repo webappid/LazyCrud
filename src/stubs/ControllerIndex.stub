@@ -4,6 +4,7 @@
  */
 namespace DummyNamespace;
 
+use App\Requests\DummyClassSearchRequest;
 use App\Services\DummyClassService;
 use WebAppId\DDD\Controllers\BaseController;
 use WebAppId\SmartResponse\Response;
@@ -19,19 +20,34 @@ use WebAppId\SmartResponse\SmartResponse;
 class DummyClassIndexController extends BaseController
 {
     /**
+     * @param DummyClassSearchRequest $categorySearchRequest
      * @param DummyClassService $dummyClassService
      * @param SmartResponse $smartResponse
      * @param Response $response
      * @return mixed
      */
-    public function __invoke(DummyClassService $dummyClassService,
+    public function __invoke(
+                             DummyClassSearchRequest $dummyClassSearchRequest,
+                             DummyClassService $dummyClassService,
                              SmartResponse $smartResponse,
                              Response $response)
     {
-        $result = $this->getContainer()->call([$dummyClassService, 'get']);
+        $searchValue = $categorySearchRequest->validated();
+        $q = "";
+        if(!empty($searchValue)) {
+            if(isset($searchValue['q'])) {
+                $q = $searchValue['q'];
+            }else{
+                $q = $searchValue['search']['value'] != null ? $searchValue['search']['value'] : '';
+            }
+        }
+
+        $result = $this->getContainer()->call([$categoryService, 'getWhere'], ['q' => $q]);
 
         if ($result->isStatus()) {
-            $response->setData($result->dummyClass);
+            $response->setData($result->dummyClassList);
+            $response->setRecordsTotal($result->countAll);
+            $response->setRecordsFiltered($result->countWhere);
             return $smartResponse->success($response);
         } else {
             return $smartResponse->dataNotFound($response);
