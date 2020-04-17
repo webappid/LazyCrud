@@ -76,4 +76,6 @@ php artisan lazy:format
 php artisan lazy:format --route=api
 ``` 
 
+If you got an error mysql gone away, you should restart your mysql. 
+
 If you have any problem to use this package, please don't hesitate to drop me and email at dyan.galih@gmail.com or chat me directly @DyanGalih on Telegram
