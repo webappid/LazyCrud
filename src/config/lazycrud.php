@@ -8,5 +8,10 @@ return [
             ]
         ],
         'route' => env('INJECT_ROUTE', 'web.php')
+    ],
+    'authorization' => [
+        'create' => 'creator_id',
+        'update' => 'user_id',
+        'owner' => 'owner_id'
     ]
 ];

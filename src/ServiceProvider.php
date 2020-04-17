@@ -4,6 +4,7 @@ namespace WebAppId\LazyCrud;
 
 use DyanGalih\CoreUI\Commands\SeedCommand;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Prophecy\Doubler\Generator\TypeHintReference;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -37,5 +38,6 @@ class ServiceProvider extends BaseServiceProvider
         $this->publishes([
             __DIR__ . '/config' => base_path('config')
         ]);
+        $this->mergeConfigFrom(__DIR__ . '/config/lazycrud.php', 'lazycrud');
     }
 }

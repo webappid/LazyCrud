@@ -28,9 +28,79 @@ trait ColumnList
      */
     protected $secondColumn = null;
 
+    /**
+     * @var string
+     */
+    protected $table;
+
+    /**
+     * @var string
+     */
+    protected $joinTable = null;
+
     protected function getFaker()
     {
         return Faker::create('id_ID');
+    }
+
+    protected function getColumn(string $table = '')
+    {
+        return DB::select(sprintf("SELECT `EXTRA`, `COLUMN_COMMENT`, `DATA_TYPE`, `COLUMN_NAME`, `IS_NULLABLE`, `CHARACTER_MAXIMUM_LENGTH` FROM information_schema.columns WHERE TABLE_SCHEMA = '%s' AND `TABLE_NAME` = '%s'", env('DB_DATABASE'), $table == '' ? $this->table : $table));
+    }
+
+    protected function getReferenced()
+    {
+        $resultList = DB::select(sprintf("SELECT `REFERENCED_TABLE_NAME`, `REFERENCED_COLUMN_NAME`, `COLUMN_NAME` FROM information_schema.KEY_COLUMN_USAGE WHERE `CONSTRAINT_SCHEMA` = '%s' AND `TABLE_NAME` = '%s' AND REFERENCED_TABLE_NAME IS NOT NULL;", env('DB_DATABASE'), $this->table));
+        $propertyList = [];
+        $joinTable = [];
+        foreach ($resultList as $result) {
+            $columnList = $this->getColumn($result->REFERENCED_TABLE_NAME);
+            foreach ($columnList as $column) {
+                if ($column->EXTRA != 'auto_increment') {
+                    $propertyList[] = "'" . $result->REFERENCED_TABLE_NAME . "." . $column->COLUMN_NAME . "'";
+                }
+            }
+            $joinTable[] = "->join('" . $result->REFERENCED_TABLE_NAME . "', '" . $result->REFERENCED_TABLE_NAME . "." . $result->COLUMN_NAME . "', '" . $this->table . "." . $result->REFERENCED_COLUMN_NAME . "')";
+        }
+
+        $this->joinTable = implode('
+                ', $joinTable);
+
+        return $propertyList;
+    }
+
+    protected function getPhpDataType($result)
+    {
+        $type = $result->DATA_TYPE;
+
+        $data = [];
+
+        switch ($type) {
+            case "decimal":
+                $data['realType'] = "float";
+                $data['fakerData'] = '$this->getFaker()->randomFloat()';
+                break;
+            case "timestamp":
+            case "datetime":
+                $data['fakerData'] = '$this->getFaker()->dateTime()';
+                $data['realType'] = "string";
+                break;
+            case "text":
+                $data['realType'] = "string";
+                $data['fakerData'] = '$this->getFaker()->text(' . $result->CHARACTER_MAXIMUM_LENGTH . ');';
+                break;
+            case "tinyint":
+            case "bigint":
+            case "integer":
+                $data['realType'] = "int";
+                $data['fakerData'] = '$this->getFaker()->randomNumber()';
+                break;
+            default:
+                $data['fakerData'] = '$this->getFaker()->text(' . $result->CHARACTER_MAXIMUM_LENGTH . ')';
+                $data['realType'] = $type;
+                break;
+        }
+        return $data;
     }
 
     /**
@@ -40,9 +110,9 @@ trait ColumnList
     public function getColumnProperties(string $arg): string
     {
 
-        $table = Str::snake(Str::pluralStudly(class_basename($arg)));
+        $this->table = Str::snake(Str::pluralStudly(class_basename($arg)));
 
-        $resultList = DB::select(sprintf("select EXTRA, `COLUMN_NAME`, `IS_NULLABLE`, `CHARACTER_MAXIMUM_LENGTH` from information_schema.columns where TABLE_SCHEMA = '%s' AND `TABLE_NAME` = '%s'", env('DB_DATABASE'), $table));
+        $resultList = $this->getColumn();
 
         $property = "";
 
@@ -64,46 +134,23 @@ trait ColumnList
                     }
                 }
                 if ($columnName != 'created_at' && $columnName != 'updated_at' && $autoincrementColumn != $columnName) {
-                    if($this->secondColumn == null){
+                    if ($this->secondColumn == null) {
                         $this->secondColumn = $columnName;
                     }
 
-                    $type = Schema::connection(null)->getColumnType($table, $columnName);
+                    //$type = Schema::connection(null)->getColumnType($table, $columnName);
 
-                    switch ($type) {
-                        case "decimal":
-                            $realType = "float";
-                            $fakerData = '$this->getFaker()->randomFloat()';
-                            break;
-                        case "timestamp":
-                        case "datetime":
-                            $fakerData = '$this->getFaker()->dateTime()';
-                            $realType = "string";
-                            break;
-                        case "text":
-                            $realType = "string";
-                            $fakerData = '$this->getFaker()->text(' . $result->CHARACTER_MAXIMUM_LENGTH . ');';
-                            break;
-                        case "tinyint":
-                        case "bigint":
-                        case "integer":
-                            $realType = "int";
-                            $fakerData = '$this->getFaker()->randomNumber()';
-                            break;
-                        default:
-                            $fakerData = '$this->getFaker()->text(' . $result->CHARACTER_MAXIMUM_LENGTH . ')';
-                            $realType = $type;
-                            break;
-                    }
+                    $phpDataType = $this->getPhpDataType($result);
+
                     switch ($this->propertiesModel) {
                         case 1:
                             if (!$ignore) {
                                 $items = [];
-                                $items[] = $realType;
+                                $items[] = $phpDataType['realType'];
                                 if ($result->IS_NULLABLE == 'NO') {
                                     $items[] = 'required';
                                 }
-                                if ($type == 'string') {
+                                if ($phpDataType['realType'] == 'string') {
                                     $items[] = 'max:' . $result->CHARACTER_MAXIMUM_LENGTH;
                                 }
                                 $propertyList[] = "'" . $columnName . "' => '" . implode('|', $items) . "'";
@@ -112,17 +159,17 @@ trait ColumnList
                         case 2:
                             $property .= '
     /**
-     * @var ' . $realType . '
+     * @var ' . $phpDataType['realType'] . '
      */
     public $' . $columnName . ';
                 ';
                             break;
                         case 3:
-                            $property .= '$dummy->' . $columnName . ' = ' . $fakerData . ';
+                            $property .= '$dummy->' . $columnName . ' = ' . $phpDataType['fakerData'] . ';
             ';
                             break;
                         default:
-                            $propertyList[] = "'" . $table . '.' . $columnName . "'";
+                            $propertyList[] = "'" . $this->table . '.' . $columnName . "'";
                             break;
                     }
                 }
@@ -135,16 +182,22 @@ trait ColumnList
             ', $propertyList) . '
          ]';
             } elseif ($i == 4) {
-                $propertyList[] = "'" . $table . '.' . $autoincrementColumn . "'";
-                $propertyList[] = "'" . $table . ".created_at'";
-                $propertyList[] = "'" . $table . ".updated_at'";
+                $propertyList[] = "'" . $this->table . '.' . $autoincrementColumn . "'";
+                $propertyList[] = "'" . $this->table . ".created_at'";
+                $propertyList[] = "'" . $this->table . ".updated_at'";
+                $propertyList = array_merge($propertyList, $this->getReferenced());
                 $property = '
+                (
                 ' . implode(',
                 ', $propertyList) . '
                 ';
+                $property .= ')
+                ';
+                if($this->joinTable!=null){
+                    $property .= $this->joinTable;
+                }
             }
         }
-
         return $property;
     }
 }

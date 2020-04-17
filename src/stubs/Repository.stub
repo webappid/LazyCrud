@@ -39,7 +39,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
     protected function getColumn($content)
     {
         return $content
-            ->select(ColumnList);
+            ->selectColumnList;
     }
 
     /**
