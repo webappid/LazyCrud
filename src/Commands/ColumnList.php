@@ -60,7 +60,7 @@ trait ColumnList
                     $propertyList[] = "'" . $result->REFERENCED_TABLE_NAME . "." . $column->COLUMN_NAME . "'";
                 }
             }
-            $joinTable[] = "->join('" . $result->REFERENCED_TABLE_NAME . "', '" . $result->REFERENCED_TABLE_NAME . "." . $result->COLUMN_NAME . "', '" . $this->table . "." . $result->REFERENCED_COLUMN_NAME . "')";
+            $joinTable[] = "->join('" . $result->REFERENCED_TABLE_NAME . "', '" . $this->table . "." . $result->COLUMN_NAME . "', '" . $result->REFERENCED_TABLE_NAME . "." . $result->REFERENCED_COLUMN_NAME . "')";
         }
 
         $this->joinTable = implode('
@@ -193,7 +193,7 @@ trait ColumnList
                 ';
                 $property .= ')
                 ';
-                if($this->joinTable!=null){
+                if ($this->joinTable != null) {
                     $property .= $this->joinTable;
                 }
             }
