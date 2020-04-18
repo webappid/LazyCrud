@@ -52,19 +52,30 @@ trait ColumnList
     {
         $resultList = DB::select(sprintf("SELECT `REFERENCED_TABLE_NAME`, `REFERENCED_COLUMN_NAME`, `COLUMN_NAME` FROM information_schema.KEY_COLUMN_USAGE WHERE `CONSTRAINT_SCHEMA` = '%s' AND `TABLE_NAME` = '%s' AND REFERENCED_TABLE_NAME IS NOT NULL;", env('DB_DATABASE'), $this->table));
         $propertyList = [];
-        $joinTable = [];
+        $joinTables = [];
+        $tables = [];
         foreach ($resultList as $result) {
             $columnList = $this->getColumn($result->REFERENCED_TABLE_NAME);
+            if (!in_array($result->REFERENCED_TABLE_NAME, $tables)) {
+                $tableName = $result->REFERENCED_TABLE_NAME;
+                $alias = null;
+            } else {
+                $columnNames = explode('_', $result->COLUMN_NAME);
+                $tableName = $columnNames[0] . '_' . $result->REFERENCED_TABLE_NAME;
+                $alias = ' AS ' . $columnNames[0];
+            }
+            $tables[] = $tableName;
+
             foreach ($columnList as $column) {
                 if ($column->EXTRA != 'auto_increment') {
-                    $propertyList[] = "'" . $result->REFERENCED_TABLE_NAME . "." . $column->COLUMN_NAME . "'";
+                    $propertyList[] = "'" . $tableName . "." . $column->COLUMN_NAME . ($alias != null ? $alias . '_' . $column->COLUMN_NAME : '') . "'";
                 }
             }
-            $joinTable[] = "->join('" . $result->REFERENCED_TABLE_NAME . "', '" . $this->table . "." . $result->COLUMN_NAME . "', '" . $result->REFERENCED_TABLE_NAME . "." . $result->REFERENCED_COLUMN_NAME . "')";
+            $joinTables[] = "->join('" . $result->REFERENCED_TABLE_NAME . " as " . $tableName . "', '" . $this->table . "." . $result->COLUMN_NAME . "', '" . $tableName . "." . $result->REFERENCED_COLUMN_NAME . "')";
         }
 
         $this->joinTable = implode('
-                ', $joinTable);
+                ', $joinTables);
 
         return $propertyList;
     }
