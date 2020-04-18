@@ -30,7 +30,7 @@ class DummyClassDetailController extends BaseController
                              SmartResponse $smartResponse,
                              Response $response)
     {
-        $result = $this->getContainer()->call([$dummyClassService, 'getById'], ['id' => $id]);
+        $result = $this->container->call([$dummyClassService, 'getById'], ['id' => $id]);
 
         if ($result->isStatus()) {
             $response->setData($result->dummyClass);

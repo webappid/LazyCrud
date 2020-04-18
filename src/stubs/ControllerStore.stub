@@ -43,7 +43,7 @@ class DummyClassStoreController extends BaseController
         $dummyClassServiceRequest = Lazy::copyFromArray($dummyClassValidated, $dummyClassServiceRequest, Lazy::AUTOCAST);
 
         InjectData
-        $result = $this->getContainer()->call([$dummyClassService, 'store'], ['dummyClassServiceRequest' => $dummyClassServiceRequest]);
+        $result = $this->container->call([$dummyClassService, 'store'], ['dummyClassServiceRequest' => $dummyClassServiceRequest]);
 
         if ($result->isStatus()) {
             $response->setData($result->dummyClass);

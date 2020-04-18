@@ -31,7 +31,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     {
         $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
 
-        $result = $this->getContainer()->call([$dummyClassRepository, 'store'], ['dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
+        $result = $this->container->call([$dummyClassRepository, 'store'], ['dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {
             $dummyClassServiceResponse->setStatus(true);
             $dummyClassServiceResponse->setMessage('Store Data Success');
@@ -51,7 +51,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     {
         $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
 
-        $result = $this->getContainer()->call([$dummyClassRepository, 'update'], ['id' => $id, 'dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
+        $result = $this->container->call([$dummyClassRepository, 'update'], ['id' => $id, 'dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {
             $dummyClassServiceResponse->setStatus(true);
             $dummyClassServiceResponse->setMessage('Update Data Success');
@@ -69,7 +69,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function getById(int $id, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse
     {
-        $result = $this->getContainer()->call([$dummyClassRepository, 'getById'], ['id' => $id]);
+        $result = $this->container->call([$dummyClassRepository, 'getById'], ['id' => $id]);
         if ($result != null) {
             $dummyClassServiceResponse->setStatus(true);
             $dummyClassServiceResponse->setMessage('Data Found');
@@ -87,7 +87,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function delete(int $id, DummyClassRepository $dummyClassRepository): bool
     {
-        return $this->getContainer()->call([$dummyClassRepository, 'delete'], ['id' => $id]);
+        return $this->container->call([$dummyClassRepository, 'delete'], ['id' => $id]);
     }
 
     /**
@@ -95,13 +95,13 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function get(DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList, int $length = 12): DummyClassServiceResponseList
     {
-        $result = $this->getContainer()->call([$dummyClassRepository, 'get']);
+        $result = $this->container->call([$dummyClassRepository, 'get']);
 
         if (count($result) > 0) {
             $dummyClassServiceResponseList->setStatus(true);
             $dummyClassServiceResponseList->setMessage('Data Found');
             $dummyClassServiceResponseList->dummyClass = $result;
-            $dummyClassServiceResponseList->countAll = $this->getContainer()->call([$dummyClassRepository, 'getCount']);
+            $dummyClassServiceResponseList->countAll = $this->container->call([$dummyClassRepository, 'getCount']);
         } else {
             $dummyClassServiceResponseList->setStatus(false);
             $dummyClassServiceResponseList->setMessage('Data Not Found');
@@ -115,7 +115,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function getCount(DummyClassRepository $dummyClassRepository): int
     {
-        return $this->getContainer()->call([$dummyClassRepository, 'getCount']);
+        return $this->container->call([$dummyClassRepository, 'getCount']);
     }
 
     /**
@@ -123,13 +123,13 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function getWhere(string $q, DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList, int $length = 12): DummyClassServiceResponseList
     {
-        $result = $this->getContainer()->call([$dummyClassRepository, 'getWhere'], ['q' => $q]);
+        $result = $this->container->call([$dummyClassRepository, 'getWhere'], ['q' => $q]);
         if (count($result) > 0) {
             $dummyClassServiceResponseList->setStatus(true);
             $dummyClassServiceResponseList->setMessage('Data Found');
             $dummyClassServiceResponseList->dummyClassList = $result;
-            $dummyClassServiceResponseList->countAll = $this->getContainer()->call([$dummyClassRepository, 'getCount']);
-            $dummyClassServiceResponseList->countWhere = $this->getContainer()->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
+            $dummyClassServiceResponseList->countAll = $this->container->call([$dummyClassRepository, 'getCount']);
+            $dummyClassServiceResponseList->countWhere = $this->container->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
         } else {
             $dummyClassServiceResponseList->setStatus(false);
             $dummyClassServiceResponseList->setMessage('Data Not Found');
@@ -142,6 +142,6 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function getWhereCount(string $q, DummyClassRepository $dummyClassRepository): int
     {
-        return $this->getContainer()->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
+        return $this->container->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
     }
 }

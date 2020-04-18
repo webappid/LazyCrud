@@ -34,7 +34,7 @@ class DummyClassDeleteController extends BaseController
                              SmartResponse $smartResponse,
                              Response $response)
     {
-        $result = $this->getContainer()->call([$dummyClassService, 'delete'], ['id' => $id]);
+        $result = $this->container->call([$dummyClassService, 'delete'], ['id' => $id]);
 
         if ($result) {
             return $smartResponse->saveDataSuccess($response);

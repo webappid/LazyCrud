@@ -34,7 +34,7 @@ class DummyClassUpdateController extends BaseController
         $dummyClassServiceRequest = Lazy::copyFromArray($dummyClassValidated, $dummyClassServiceRequest, Lazy::AUTOCAST);
 
         InjectData
-        $result = $this->getContainer()->call([$dummyClassService, 'update'], ['id' => $id, 'dummyClassServiceRequest' => $dummyClassServiceRequest]);
+        $result = $this->container->call([$dummyClassService, 'update'], ['id' => $id, 'dummyClassServiceRequest' => $dummyClassServiceRequest]);
 
         if ($result->isStatus()) {
             $response->setData($result->dummyClass);
