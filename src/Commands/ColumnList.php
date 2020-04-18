@@ -162,8 +162,6 @@ trait ColumnList
                         $this->secondColumn = $columnName;
                     }
 
-                    //$type = Schema::connection(null)->getColumnType($table, $columnName);
-
                     $phpDataType = $this->getPhpDataType($result);
 
                     switch ($this->propertiesModel) {
@@ -210,7 +208,7 @@ trait ColumnList
                 $columnList = array_merge($columnList, $propertyList);
                 $columnList[] = "'" . $this->table . ".created_at'";
                 $columnList[] = "'" . $this->table . ".updated_at'";
-                $columnList = array_merge($propertyList, $this->getReferenced());
+                $columnList = array_merge($columnList, $this->getReferenced());
                 $property = '
                 (
                 ' . implode(',
