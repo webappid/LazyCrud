@@ -206,14 +206,15 @@ trait ColumnList
             ', $propertyList) . '
          ]';
             } elseif ($i == 4) {
-                $propertyList[] = "'" . $this->table . '.' . $autoincrementColumn . "'";
-                $propertyList[] = "'" . $this->table . ".created_at'";
-                $propertyList[] = "'" . $this->table . ".updated_at'";
-                $propertyList = array_merge($propertyList, $this->getReferenced());
+                $columnList[] = "'" . $this->table . '.' . $autoincrementColumn . "'";
+                $columnList = array_merge($columnList, $propertyList);
+                $columnList[] = "'" . $this->table . ".created_at'";
+                $columnList[] = "'" . $this->table . ".updated_at'";
+                $columnList = array_merge($propertyList, $this->getReferenced());
                 $property = '
                 (
                 ' . implode(',
-                ', $propertyList) . '
+                ', $columnList) . '
                 ';
                 $property .= ')
                 ';
