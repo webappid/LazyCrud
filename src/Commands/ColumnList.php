@@ -67,7 +67,7 @@ trait ColumnList
             $tables[] = $tableName;
 
             foreach ($columnList as $column) {
-                if ($column->EXTRA != 'auto_increment') {
+                if ($column->EXTRA != 'auto_increment' || $this->propertiesModel == 4) {
                     $propertyList[] = "'" . $tableName . "." . $column->COLUMN_NAME . ($alias != null ? $alias . '_' . $column->COLUMN_NAME : '') . "'";
                 }
             }
@@ -196,14 +196,13 @@ trait ColumnList
                     }
                 }
             }
-            $i = $this->propertiesModel;
 
-            if ($i == 1) {
+            if ($this->propertiesModel == 1) {
                 $property = '[
             ' . implode(',
             ', $propertyList) . '
          ]';
-            } elseif ($i == 4) {
+            } elseif ($this->propertiesModel == 4) {
                 $columnList[] = "'" . $this->table . '.' . $autoincrementColumn . "'";
                 $columnList = array_merge($columnList, $propertyList);
                 $columnList[] = "'" . $this->table . ".created_at'";
