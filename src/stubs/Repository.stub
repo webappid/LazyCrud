@@ -97,13 +97,19 @@ class DummyClassRepository implements DummyClassRepositoryContract
         return $dummyClass->count();
     }
 
+    private function getQueryWhere(string $q, DummyClass $dummyClass)
+    {
+        return $this->getColumn($dummyClass)
+                    ->where('searchColumn', 'LIKE', '%' . $q . '%')
+    }
+
     /**
      * @inheritDoc
      */
     public function getWhere(string $q, DummyClass $dummyClass, int $length = 12): LengthAwarePaginator
     {
-        return $this->getColumn($dummyClass)
-            ->where('searchColumn', 'LIKE', '%' . $q . '%')
+        return $this
+            ->getQueryWhere($q, $dummyClass)
             ->paginate($length);
     }
 
@@ -112,8 +118,8 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     public function getWhereCount(string $q, DummyClass $dummyClass, int $length = 12): int
     {
-        return $dummyClass
-            ->where('searchColumn', 'LIKE', '%' . $q . '%')
+        return $this
+            ->getQueryWhere($q, $dummyClass)
             ->count();
     }
 }
