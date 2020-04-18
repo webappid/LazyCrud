@@ -108,7 +108,7 @@ trait ColumnList
             case "enum":
             case "varchar":
                 $data['realType'] = "string";
-                $data['fakerData'] = '$this->getFaker()->text(' . $result->CHARACTER_MAXIMUM_LENGTH . ');';
+                $data['fakerData'] = '$this->getFaker()->text(' . $result->CHARACTER_MAXIMUM_LENGTH . ')';
                 break;
             case "tinyint":
             case "smallint":
