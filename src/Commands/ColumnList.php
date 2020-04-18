@@ -88,20 +88,33 @@ trait ColumnList
 
         switch ($type) {
             case "decimal":
+            case "double":
+            case "float":
                 $data['realType'] = "float";
                 $data['fakerData'] = '$this->getFaker()->randomFloat()';
                 break;
+            case "date":
             case "timestamp":
             case "datetime":
+            case "time":
                 $data['fakerData'] = '$this->getFaker()->dateTime()';
                 $data['realType'] = "string";
                 break;
             case "text":
+            case "longtext":
+            case "mediumtext":
+            case "tinytext":
+            case "char":
+            case "enum":
+            case "varchar":
                 $data['realType'] = "string";
                 $data['fakerData'] = '$this->getFaker()->text(' . $result->CHARACTER_MAXIMUM_LENGTH . ');';
                 break;
             case "tinyint":
+            case "smallint":
+            case "mediumint":
             case "bigint":
+            case "int":
             case "integer":
                 $data['realType'] = "int";
                 $data['fakerData'] = '$this->getFaker()->randomNumber()';
