@@ -20,7 +20,7 @@ use WebAppId\SmartResponse\SmartResponse;
 class DummyClassIndexController extends BaseController
 {
     /**
-     * @param DummyClassSearchRequest $categorySearchRequest
+     * @param DummyClassSearchRequest $dummyClassSearchRequest
      * @param DummyClassService $dummyClassService
      * @param SmartResponse $smartResponse
      * @param Response $response
@@ -32,7 +32,7 @@ class DummyClassIndexController extends BaseController
                              SmartResponse $smartResponse,
                              Response $response)
     {
-        $searchValue = $categorySearchRequest->validated();
+        $searchValue = $dummyClassSearchRequest->validated();
         $q = "";
         if(!empty($searchValue)) {
             if(isset($searchValue['q'])) {
@@ -42,7 +42,7 @@ class DummyClassIndexController extends BaseController
             }
         }
 
-        $result = $this->getContainer()->call([$categoryService, 'getWhere'], ['q' => $q]);
+        $result = $this->getContainer()->call([$dummyClassService, 'getWhere'], ['q' => $q]);
 
         if ($result->isStatus()) {
             $response->setData($result->dummyClassList);
