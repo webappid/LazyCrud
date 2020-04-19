@@ -100,7 +100,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
     private function getQueryWhere(string $q, DummyClass $dummyClass)
     {
         return $this->getColumn($dummyClass)
-                    ->where('searchColumn', 'LIKE', '%' . $q . '%')
+                    ->where('searchColumn', 'LIKE', '%' . $q . '%');
     }
 
     /**

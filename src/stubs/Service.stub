@@ -33,12 +33,12 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
 
         $result = $this->container->call([$dummyClassRepository, 'store'], ['dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {
-            $dummyClassServiceResponse->setStatus(true);
-            $dummyClassServiceResponse->setMessage('Store Data Success');
+            $dummyClassServiceResponse->status = true;
+            $dummyClassServiceResponse->message = 'Store Data Success';
             $dummyClassServiceResponse->dummyClass = $result;
         } else {
-            $dummyClassServiceResponse->setStatus(false);
-            $dummyClassServiceResponse->setMessage('Store Data Failed');
+            $dummyClassServiceResponse->status = false;
+            $dummyClassServiceResponse->message = 'Store Data Failed';
         }
 
         return $dummyClassServiceResponse;
@@ -53,12 +53,12 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
 
         $result = $this->container->call([$dummyClassRepository, 'update'], ['id' => $id, 'dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {
-            $dummyClassServiceResponse->setStatus(true);
-            $dummyClassServiceResponse->setMessage('Update Data Success');
+            $dummyClassServiceResponse->status = true;
+            $dummyClassServiceResponse->message = 'Update Data Success';
             $dummyClassServiceResponse->dummyClass = $result;
         } else {
-            $dummyClassServiceResponse->setStatus(false);
-            $dummyClassServiceResponse->setMessage('Update Data Failed');
+            $dummyClassServiceResponse->status = false;
+            $dummyClassServiceResponse->message = 'Update Data Failed';
         }
 
         return $dummyClassServiceResponse;
@@ -71,12 +71,12 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     {
         $result = $this->container->call([$dummyClassRepository, 'getById'], ['id' => $id]);
         if ($result != null) {
-            $dummyClassServiceResponse->setStatus(true);
-            $dummyClassServiceResponse->setMessage('Data Found');
+            $dummyClassServiceResponse->status = true;
+            $dummyClassServiceResponse->message = 'Data Found';
             $dummyClassServiceResponse->dummyClass = $result;
         } else {
-            $dummyClassServiceResponse->setStatus(false);
-            $dummyClassServiceResponse->setMessage('Data Not Found');
+            $dummyClassServiceResponse->status = false;
+            $dummyClassServiceResponse->message = 'Data Not Found';
         }
 
         return $dummyClassServiceResponse;
@@ -98,13 +98,13 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
         $result = $this->container->call([$dummyClassRepository, 'get']);
 
         if (count($result) > 0) {
-            $dummyClassServiceResponseList->setStatus(true);
-            $dummyClassServiceResponseList->setMessage('Data Found');
+            $dummyClassServiceResponseList->status = true;
+            $dummyClassServiceResponseList->message = 'Data Found';
             $dummyClassServiceResponseList->dummyClass = $result;
             $dummyClassServiceResponseList->countAll = $this->container->call([$dummyClassRepository, 'getCount']);
         } else {
-            $dummyClassServiceResponseList->setStatus(false);
-            $dummyClassServiceResponseList->setMessage('Data Not Found');
+            $dummyClassServiceResponseList->status = false;
+            $dummyClassServiceResponseList->message = 'Data Not Found';
         }
 
         return $dummyClassServiceResponseList;
@@ -125,14 +125,14 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     {
         $result = $this->container->call([$dummyClassRepository, 'getWhere'], ['q' => $q]);
         if (count($result) > 0) {
-            $dummyClassServiceResponseList->setStatus(true);
-            $dummyClassServiceResponseList->setMessage('Data Found');
+            $dummyClassServiceResponseList->status = true;
+            $dummyClassServiceResponseList->message = 'Data Found';
             $dummyClassServiceResponseList->dummyClassList = $result;
             $dummyClassServiceResponseList->countAll = $this->container->call([$dummyClassRepository, 'getCount']);
             $dummyClassServiceResponseList->countWhere = $this->container->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
         } else {
-            $dummyClassServiceResponseList->setStatus(false);
-            $dummyClassServiceResponseList->setMessage('Data Not Found');
+            $dummyClassServiceResponseList->status = false;
+            $dummyClassServiceResponseList->message = 'Data Not Found';
         }
         return $dummyClassServiceResponseList;
     }
