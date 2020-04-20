@@ -17,7 +17,7 @@
     "require": {
         "php": ">=7.2.0",
         "illuminate/support": "^6.0|^7.0",
-        "webappid/laravel-user": "^3.0",
+        "webappid/laravel-user": "^4.0",
         "webappid/smartresponse": "^1.1",
         "webappid/laravel-ddd": "^1.3"
     },
