@@ -80,6 +80,16 @@ class DummyClassRepositoryTest extends SmartTestCase
         self::assertGreaterThanOrEqual(1, count($resultList));
     }
 
+    public function testCount()
+    {
+        for ($i = 0; $i < $this->getFaker()->numberBetween(10, $this->getFaker()->numberBetween(10, 30)); $i++) {
+            $this->testStore($i);
+        }
+
+        $result = $this->container->call([$this->dummyClassRepository, 'getCount']);
+        self::assertGreaterThanOrEqual(1, $result);
+    }
+
     public function testUpdate()
     {
         $dummyClass = $this->testStore();
