@@ -101,7 +101,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
             $dummyClassServiceResponseList->message = 'Data Found';
             $dummyClassServiceResponseList->dummyClassList = $result;
             $dummyClassServiceResponseList->countAll = $this->container->call([$dummyClassRepository, 'getCount']);
-            $dummyClassServiceResponseList->countWhere = $this->container->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
+            $dummyClassServiceResponseList->countWhere = $this->container->call([$dummyClassRepository, 'getCount'], ['q' => $q]);
         } else {
             $dummyClassServiceResponseList->status = false;
             $dummyClassServiceResponseList->message = 'Data Not Found';

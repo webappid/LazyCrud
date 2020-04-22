@@ -87,7 +87,7 @@ class DummyClassServiceTest extends SmartTestCase
             $this->testStore($i);
         }
         $result = $this->container->call([$this->dummyClassService, 'getCount']);
-        self::assertTrue($result->isStatus());
+        self::assertGreaterThanOrEqual(1, $result);
     }
 
     public function testUpdate()
