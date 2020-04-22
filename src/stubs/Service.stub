@@ -93,37 +93,9 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     /**
      * @inheritDoc
      */
-    public function get(DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList, int $length = 12): DummyClassServiceResponseList
+    public function get(DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList, int $length = 12, string $q = null): DummyClassServiceResponseList
     {
-        $result = $this->container->call([$dummyClassRepository, 'get']);
-
-        if (count($result) > 0) {
-            $dummyClassServiceResponseList->status = true;
-            $dummyClassServiceResponseList->message = 'Data Found';
-            $dummyClassServiceResponseList->dummyClass = $result;
-            $dummyClassServiceResponseList->countAll = $this->container->call([$dummyClassRepository, 'getCount']);
-        } else {
-            $dummyClassServiceResponseList->status = false;
-            $dummyClassServiceResponseList->message = 'Data Not Found';
-        }
-
-        return $dummyClassServiceResponseList;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCount(DummyClassRepository $dummyClassRepository): int
-    {
-        return $this->container->call([$dummyClassRepository, 'getCount']);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getWhere(string $q, DummyClassRepository $dummyClassRepository, DummyClassServiceResponseList $dummyClassServiceResponseList, int $length = 12): DummyClassServiceResponseList
-    {
-        $result = $this->container->call([$dummyClassRepository, 'getWhere'], ['q' => $q]);
+        $result = $this->container->call([$dummyClassRepository, 'get'], ['q' => $q]);
         if (count($result) > 0) {
             $dummyClassServiceResponseList->status = true;
             $dummyClassServiceResponseList->message = 'Data Found';
@@ -140,8 +112,8 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
     /**
      * @inheritDoc
      */
-    public function getWhereCount(string $q, DummyClassRepository $dummyClassRepository): int
+    public function getCount(DummyClassRepository $dummyClassRepository, string $q = null): int
     {
-        return $this->container->call([$dummyClassRepository, 'getWhereCount'], ['q' => $q]);
+        return $this->container->call([$dummyClassRepository, 'getCount'], ['q' => $q]);
     }
 }
