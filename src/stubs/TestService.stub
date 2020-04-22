@@ -81,6 +81,15 @@ class DummyClassServiceTest extends SmartTestCase
         self::assertTrue($result->isStatus());
     }
 
+    public function testGetCount()
+    {
+        for ($i=0; $i<$this->getFaker()->numberBetween(10, $this->getFaker()->numberBetween(10, 30)); $i++){
+            $this->testStore($i);
+        }
+        $result = $this->container->call([$this->dummyClassService, 'getCount']);
+        self::assertTrue($result->isStatus());
+    }
+
     public function testUpdate()
     {
         $contentServiceResponse = $this->testStore();
