@@ -90,7 +90,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
             ->getColumn($dummyClass)
             ->when($q != null, function ($query) use ($q) {
                 return $query->where('searchColumn', 'LIKE', '%' . $q . '%');
-            }
+            })
             ->paginate($length);
     }
 
@@ -102,7 +102,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
         return $dummyClass
             ->when($q != null, function ($query) use ($q) {
                         return $query->where('searchColumn', 'LIKE', '%' . $q . '%');
-            }
+            })
             ->count();
     }
 }
