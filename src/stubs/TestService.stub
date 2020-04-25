@@ -93,8 +93,7 @@ class DummyClassServiceTest extends SmartTestCase
     public function testUpdate()
     {
         $contentServiceResponse = $this->testStore();
-        $dummyClassServiceRequest = $this->getDummy();
-        $result = $this->container->call([$this->dummyClassService, 'update'], ['id' => $contentServiceResponse->dummyClass->id, 'dummyClassServiceRequest' => $dummyClassServiceRequest]);
+        $result = $this->container->call([$this->dummyClassService, 'update'], ['id' => $contentServiceResponse->dummyClass->id]);
         self::assertNotEquals(null, $result);
     }
 
