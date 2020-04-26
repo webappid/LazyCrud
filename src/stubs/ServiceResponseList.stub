@@ -6,7 +6,7 @@
 namespace DummyNamespace;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use WebAppId\DDD\Responses\AbstractResponse;
+use WebAppId\DDD\Responses\AbstractResponseList;
 
 /**
  * @author: DummyAuthor
@@ -15,7 +15,7 @@ use WebAppId\DDD\Responses\AbstractResponse;
  * Class DummyClassServiceResponseList
  * @package DummyNamespace
  */
-class DummyClassServiceResponseList extends AbstractResponse
+class DummyClassServiceResponseList extends AbstractResponseList
 {
     /**
      * @var LengthAwarePaginator
