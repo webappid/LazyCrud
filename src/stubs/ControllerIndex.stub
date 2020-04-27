@@ -46,8 +46,8 @@ class DummyClassIndexController extends BaseController
 
         if ($result->isStatus()) {
             $response->setData($result->dummyClassList);
-            $response->setRecordsTotal($result->countAll);
-            $response->setRecordsFiltered($result->countWhere);
+            $response->setRecordsTotal($result->count);
+            $response->setRecordsFiltered($result->countFiltered);
             return $smartResponse->success($response);
         } else {
             return $smartResponse->dataNotFound($response);
