@@ -5,6 +5,7 @@
 
 namespace DummyNamespace;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\QueryException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use WebAppId\DDD\Tools\Lazy;
@@ -36,7 +37,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
         }
     }
 
-    protected function getColumn($dummyClass)
+    protected function getColumn($dummyClass): Builder
     {
         return $dummyClass
             ->selectColumnList;
