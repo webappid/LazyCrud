@@ -37,10 +37,18 @@ class DummyClassRepository implements DummyClassRepositoryContract
         }
     }
 
-    protected function getColumn($dummyClass): Builder
+    /**
+     * @param User $user
+     * @param string $q
+     * @return Builder
+     */
+    protected function getColumn($dummyClass, string $q = null): Builder
     {
         return $dummyClass
-            ->selectColumnList;
+            ->selectColumnList
+            ->when($q != null, function ($query) use ($q) {
+                    return $query->where('searchColumn', 'LIKE', '%' . $q . '%');
+                });
     }
 
     /**
@@ -88,10 +96,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
     public function get(DummyClass $dummyClass, int $length = 12, string $q = null): LengthAwarePaginator
     {
         return $this
-            ->getColumn($dummyClass)
-            ->when($q != null, function ($query) use ($q) {
-                return $query->where('searchColumn', 'LIKE', '%' . $q . '%');
-            })
+            ->getColumn($dummyClass, $q)
             ->paginate($length);
     }
 
@@ -100,10 +105,8 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     public function getCount(DummyClass $dummyClass, string $q = null): int
     {
-        return $dummyClass
-            ->when($q != null, function ($query) use ($q) {
-                        return $query->where('searchColumn', 'LIKE', '%' . $q . '%');
-            })
+        return $this
+            ->getColumn($dummyClass, $q)
             ->count();
     }
 }
