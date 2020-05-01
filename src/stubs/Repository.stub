@@ -39,7 +39,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
 
     /**
      * @param User $user
-     * @param string $q
+     * @param string|null $q
      * @return Builder
      */
     protected function getColumn($dummyClass, string $q = null): Builder
