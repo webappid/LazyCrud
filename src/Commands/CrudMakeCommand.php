@@ -1,7 +1,7 @@
 <?php
 
 
-namespace WebAppId\LazyCrud;
+namespace WebAppId\LazyCrud\Commands;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;

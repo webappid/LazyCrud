@@ -1,7 +1,7 @@
 <?php
 
 
-namespace WebAppId\LazyCrud;
+namespace WebAppId\LazyCrud\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

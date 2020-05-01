@@ -3,7 +3,7 @@
  * Created by LazyCrud - @DyanGalih <dyan.galih@gmail.com>
  */
 
-namespace Tests\Services;
+namespace Tests\Feature\Services;
 
 use App\Services\DummyClassService;
 use App\Services\Requests\DummyClassServiceRequest;

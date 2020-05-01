@@ -2,9 +2,7 @@
 
 namespace WebAppId\LazyCrud;
 
-use DyanGalih\CoreUI\Commands\SeedCommand;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Prophecy\Doubler\Generator\TypeHintReference;
 
 class ServiceProvider extends BaseServiceProvider
 {
