@@ -38,11 +38,11 @@ class DummyClassRepository implements DummyClassRepositoryContract
     }
 
     /**
-     * @param User $user
+     * @param DummyClass $dummyClass
      * @param string|null $q
      * @return Builder
      */
-    protected function getColumn($dummyClass, string $q = null): Builder
+    protected function getColumn(DummyClass $dummyClass, string $q = null): Builder
     {
         return $dummyClass
             ->selectColumnList
