@@ -23,10 +23,10 @@ class RepositoryMakeCommand extends SmartMakeCommand
      */
     public function __construct(Filesystem $files)
     {
-        $this->classNameSuffix = 'Repository';
+        $this->classNameSuffix = 'Repositories';
         $this->name = 'lazy:repository';
-        $this->description = 'Create a new Repository Class';
-        $this->stubFile = 'Repository';
+        $this->description = 'Create a new Repositories Class';
+        $this->stubFile = 'Repositories';
         $this->nameSpace = '\Repositories';
         parent::__construct($files);
     }

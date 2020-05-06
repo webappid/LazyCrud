@@ -48,7 +48,7 @@ class DummyClassServiceTest extends SmartTestCase
     {
         $contentServiceResponse = $this->testStore();
         $result = $this->container->call([$this->dummyClassService, 'getById'], ['id' => $contentServiceResponse->dummyClass->id]);
-        self::assertTrue($result->isStatus());
+        self::assertTrue($result->status);
     }
 
     private function getDummy(int $number = 0): DummyClassServiceRequest
@@ -67,7 +67,7 @@ class DummyClassServiceTest extends SmartTestCase
     {
         $dummyClassServiceRequest = $this->getDummy($number);
         $result = $this->container->call([$this->dummyClassService, 'store'], ['dummyClassServiceRequest' => $dummyClassServiceRequest]);
-        self::assertTrue($result->isStatus());
+        self::assertTrue($result->status);
         return $result;
     }
 
@@ -77,7 +77,7 @@ class DummyClassServiceTest extends SmartTestCase
             $this->testStore($i);
         }
         $result = $this->container->call([$this->dummyClassService, 'get']);
-        self::assertTrue($result->isStatus());
+        self::assertTrue($result->status);
     }
 
     public function testGetCount()
@@ -112,7 +112,7 @@ class DummyClassServiceTest extends SmartTestCase
         $string = 'aiueo';
         $q = $string[$this->getFaker()->numberBetween(0, strlen($string) - 1)];
         $result = $this->container->call([$this->dummyClassService, 'get'], ['q' => $q]);
-        self::assertTrue($result->isStatus());
+        self::assertTrue($result->status);
     }
 
     public function testGetWhereCount()

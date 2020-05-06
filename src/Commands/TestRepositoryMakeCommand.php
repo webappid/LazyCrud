@@ -24,7 +24,7 @@ class TestRepositoryMakeCommand extends TestSmartMakeCommand
     {
         $this->classNameSuffix = 'RepositoryTest';
         $this->name = 'lazy:testrepository';
-        $this->description = 'Create a new Test Repository Class';
+        $this->description = 'Create a new Test Repositories Class';
         $this->stubFile = 'TestRepository';
         $this->nameSpace = '\Unit\Repositories';
         $this->hidden = true;
