@@ -36,7 +36,7 @@ class DummyClassUpdateController extends BaseController
         InjectData
         $result = $this->container->call([$dummyClassService, 'update'], ['id' => $id, 'dummyClassServiceRequest' => $dummyClassServiceRequest]);
 
-        if ($result->isStatus()) {
+        if ($result->status) {
             $response->setData($result->dummyClass);
             return $smartResponse->saveDataSuccess($response);
         } else {

@@ -42,9 +42,9 @@ class DummyClassIndexController extends BaseController
             }
         }
 
-        $result = $this->container->call([$dummyClassService, 'getWhere'], ['q' => $q]);
+        $result = $this->container->call([$dummyClassService, 'get'], ['q' => $q]);
 
-        if ($result->isStatus()) {
+        if ($result->status) {
             $response->setData($result->dummyClassList);
             $response->setRecordsTotal($result->count);
             $response->setRecordsFiltered($result->countFiltered);
