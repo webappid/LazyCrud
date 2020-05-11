@@ -209,15 +209,12 @@ trait ColumnList
                 $columnList[] = "'" . $this->table . ".updated_at'";
                 $columnList = array_merge($columnList, $this->getReferenced());
                 $property = '
-                (
+            [
                 ' . implode(',
                 ', $columnList) . '
                 ';
-                $property .= ')
-                ';
-                if ($this->joinTable != null) {
-                    $property .= $this->joinTable;
-                }
+                $property .= ']';
+
             }
         }
         return $property;
