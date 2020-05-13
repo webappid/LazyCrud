@@ -44,8 +44,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     protected function getJoin(DummyClass $dummyClass, string $q = null): Builder
     {
-        return $dummyClass
-                joinTable
+        return $dummyClassjoinTable
                 ->when($q != null, function ($query) use ($q) {
                         return $query->where('searchColumn', 'LIKE', '%' . $q . '%');
                     });
@@ -82,7 +81,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     public function getById(int $id, DummyClass $dummyClass): ?DummyClass
     {
-        return $this->getJoin($dummyClass)->find($id);
+        return $this->getJoin($dummyClass)->find($id, $this->getColumn());
     }
 
     /**
@@ -105,7 +104,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
     {
         return $this
             ->getJoin($dummyClass, $q)
-            ->paginate($length);
+            ->paginate($length, $this->getColumn());
     }
 
     /**

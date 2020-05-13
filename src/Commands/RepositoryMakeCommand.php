@@ -58,7 +58,10 @@ class RepositoryMakeCommand extends SmartMakeCommand
         $this->propertiesModel = 4;
         $column = $this->getColumnProperties($this->inputName);
         if ($this->joinTable != null) {
-            $stub = str_replace('joinTable', $this->joinTable, $stub);
+            $stub = str_replace('joinTable', '
+            '.$this->joinTable, $stub);
+        } else {
+            $stub = str_replace('joinTable', '', $stub);
         }
         if ($this->secondColumn != null) {
             $stub = str_replace('searchColumn', $this->secondColumn, $stub);
