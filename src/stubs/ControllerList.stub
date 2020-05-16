@@ -14,10 +14,10 @@ use WebAppId\SmartResponse\SmartResponse;
  * @author: DummyAuthor
  * Date: DummyDate
  * Time: DummyTime
- * Class DummyClassIndexController
+ * Class DummyClassListController
  * @package DummyNamespace
  */
-class DummyClassIndexController extends BaseController
+class DummyClassListController extends BaseController
 {
     /**
      * @param DummyClassSearchRequest $dummyClassSearchRequest

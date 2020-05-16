@@ -36,9 +36,9 @@ class CrudMakeCommand extends TestSmartMakeCommand
         parent::__construct($files);
     }
 
-    private function createControllerData()
+    private function createControllerList()
     {
-        $this->call('lazy:controllerindex',
+        $this->call('lazy:controllerlist',
             $this->options);
     }
 
@@ -76,10 +76,10 @@ class CrudMakeCommand extends TestSmartMakeCommand
         if ($this->option('auth')) {
             $this->options["--auth"] = $this->option('auth');
         }
-        $this->createControllerData();
+        $this->createControllerStore();
+        $this->createControllerList();
         $this->createControllerDetail();
         $this->createControllerDelete();
-        $this->createControllerStore();
         $this->createControllerUpdate();
     }
 

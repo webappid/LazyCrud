@@ -4,7 +4,6 @@
 namespace WebAppId\LazyCrud\Commands;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 
 /**
  * @author: Dyan Galih<dyan.galih@gmail.com>
@@ -13,7 +12,7 @@ use Illuminate\Support\Str;
  * Class ControllerDetailMakeCommand
  * @package WebAppId\LazyCrud
  */
-class ControllerIndexMakeCommand extends ControllerMakeCommand
+class ControllerListMakeCommand extends ControllerMakeCommand
 {
     /**
      * ControllerStoreMakeCommand constructor.
@@ -21,10 +20,10 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
      */
     public function __construct(Filesystem $files)
     {
-        $this->classNameSuffix = 'IndexController';
-        $this->signature = 'lazy:controllerindex {name} {--inject-route=} {{--auth}}';
-        $this->description = 'Create a new Index Controller Class';
-        $this->stubFile = 'ControllerIndex';
+        $this->classNameSuffix = 'ListController';
+        $this->signature = 'lazy:controllerlist {name} {--inject-route=} {{--auth}}';
+        $this->description = 'Create a new List Controller Class';
+        $this->stubFile = 'ControllerList';
         $this->nameSpace = '\Http\Controllers';
         $this->isSubFolder = true;
         $this->hidden = true;
@@ -68,7 +67,7 @@ class ControllerIndexMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/' . $this->lower . '\', \\' . $this->folder . '\\' . $this->inputName . 'IndexController::class)->name(\'lazy.' . $this->lower . '.index\');
+Route::get(\'/' . $this->lower . '\', \\' . $this->folder . '\\' . $this->inputName . 'ListController::class)->name(\'lazy.' . $this->lower . '.list\');
 ';
     }
 }

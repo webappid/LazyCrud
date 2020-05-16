@@ -5,7 +5,7 @@ namespace WebAppId\LazyCrud;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use WebAppId\LazyCrud\Commands\ControllerDeleteMakeCommand;
 use WebAppId\LazyCrud\Commands\ControllerDetailMakeCommand;
-use WebAppId\LazyCrud\Commands\ControllerIndexMakeCommand;
+use WebAppId\LazyCrud\Commands\ControllerListMakeCommand;
 use WebAppId\LazyCrud\Commands\ControllerStoreMakeCommand;
 use WebAppId\LazyCrud\Commands\ControllerUpdateMakeCommand;
 use WebAppId\LazyCrud\Commands\CrudMakeCommand;
@@ -31,7 +31,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->commands(ControllerDeleteMakeCommand::class);
         $this->commands(ControllerDetailMakeCommand::class);
-        $this->commands(ControllerIndexMakeCommand::class);
+        $this->commands(ControllerListMakeCommand::class);
         $this->commands(ControllerStoreMakeCommand::class);
         $this->commands(ControllerUpdateMakeCommand::class);
         $this->commands(CrudMakeCommand::class);
