@@ -60,7 +60,7 @@ class DummyClassServiceTest extends SmartTestCase
         } catch (BindingResolutionException $e) {
             report($e);
         }
-        return Lazy::copy($dummyClassRepositoryRequest, $dummyClassServiceRequest);
+        return Lazy::copy($dummyClassRepositoryRequest, $dummyClassServiceRequest, Lazy::AUTOCAST);
     }
 
     public function testStore(int $number = 0)

@@ -29,7 +29,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function store(DummyClassServiceRequest $dummyClassServiceRequest, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse
     {
-        $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
+        $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest, Lazy::AUTOCAST);
 
         $result = $this->container->call([$dummyClassRepository, 'store'], ['dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {
@@ -49,7 +49,7 @@ class DummyClassService extends BaseService implements DummyClassServiceContract
      */
     public function update(int $id, DummyClassServiceRequest $dummyClassServiceRequest, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClassRepository $dummyClassRepository, DummyClassServiceResponse $dummyClassServiceResponse): DummyClassServiceResponse
     {
-        $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest);
+        $dummyClassRepositoryRequest = Lazy::copy($dummyClassServiceRequest, $dummyClassRepositoryRequest, Lazy::AUTOCAST);
 
         $result = $this->container->call([$dummyClassRepository, 'update'], ['id' => $id, 'dummyClassRepositoryRequest' => $dummyClassRepositoryRequest]);
         if ($result != null) {

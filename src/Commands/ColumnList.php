@@ -90,14 +90,14 @@ trait ColumnList
             case "decimal":
             case "double":
             case "float":
-                $data['realType'] = "float";
+                $data['realType'] = "double";
                 $data['fakerData'] = '$this->getFaker()->randomFloat()';
                 break;
             case "date":
             case "timestamp":
             case "datetime":
             case "time":
-                $data['fakerData'] = '$this->getFaker()->dateTime()';
+                $data['fakerData'] = "$this->getFaker()->date('Y-m-d H:m:i')";
                 $data['realType'] = "string";
                 break;
             case "text":
