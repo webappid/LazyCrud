@@ -35,7 +35,13 @@ class RouteFormatMakeCommand extends Command
         $number = 0;
         $routeCollection = json_decode(json_encode(Route::getRoutes()->get(), true), true);
         foreach ($routeCollection as $key => $value) {
-            if ($routeName == $value['action']['middleware'][0]) {
+            if (isset($value['action']['middleware'])) {
+                $defaultRoute = $value['action']['middleware'][0];
+            } else {
+                $defaultRoute = "web";
+            }
+
+            if ($routeName == $defaultRoute) {
                 $name = isset($value['action']["as"]) ? $value['action']["as"] : null;
                 $names = explode('.', $name);
                 if ($name != null && $names[0] == 'lazy') {
