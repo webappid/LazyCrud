@@ -3,10 +3,8 @@
 
 namespace WebAppId\LazyCrud\Commands;
 
-use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 /**
@@ -37,11 +35,6 @@ trait ColumnList
      * @var string
      */
     protected $joinTable = null;
-
-    protected function getFaker()
-    {
-        return Faker::create('id_ID');
-    }
 
     protected function getColumn(string $table = '')
     {
@@ -97,7 +90,7 @@ trait ColumnList
             case "timestamp":
             case "datetime":
             case "time":
-                $data['fakerData'] = "$this->getFaker()->date('Y-m-d H:m:i')";
+                $data['fakerData'] = '$this->getFaker()->date("Y-m-d H:m:i"")';
                 $data['realType'] = "string";
                 break;
             case "text":
