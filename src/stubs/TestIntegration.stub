@@ -107,11 +107,11 @@ class DummyClassIntegrationTest extends SmartTestCase
         self::assertEquals(201, $jsonResponse->code);
     }
 
-    public function testIndex()
+    public function testList()
     {
         $this->testStore();
 
-        $route = route('lazy.dummyClass.index');
+        $route = route('lazy.dummyClass.list');
 
         $user = $this->secure();
 
