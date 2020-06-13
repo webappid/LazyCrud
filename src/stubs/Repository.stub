@@ -63,7 +63,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     public function update(int $id, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClass $dummyClass): ?DummyClass
     {
-        $dummyClass = $this->getById($id, $dummyClass);
+        $dummyClass = $dummyClass->find($id);
         if($dummyClass!=null){
             try {
                 $dummyClass = Lazy::copy($dummyClassRepositoryRequest, $dummyClass);
