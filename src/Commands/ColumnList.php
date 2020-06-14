@@ -90,7 +90,7 @@ trait ColumnList
             case "timestamp":
             case "datetime":
             case "time":
-                $data['fakerData'] = '$this->getFaker()->date("Y-m-d H:m:i"")';
+                $data['fakerData'] = '$this->getFaker()->date("Y-m-d H:m:i")';
                 $data['realType'] = "string";
                 break;
             case "text":
