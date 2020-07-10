@@ -19,19 +19,19 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface DummyClassRepositoryContract
 {
     /**
-     * @param DummyClassRepositoryRequest $dummyRepositoryClassRequest
+     * @param DummyClassRepositoryRequest $dummyClassRepositoryRequest
      * @param DummyClass $dummyClass
      * @return DummyClass|null
      */
-    public function store(DummyClassRepositoryRequest $dummyRepositoryClassRequest, DummyClass $dummyClass): ?DummyClass;
+    public function store(DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClass $dummyClass): ?DummyClass;
 
     /**
      * @param int $id
-     * @param DummyClassRepositoryRequest $dummyRepositoryClassRequest
+     * @param DummyClassRepositoryRequest $dummyClassRepositoryRequest
      * @param DummyClass $dummyClass
      * @return DummyClass|null
      */
-    public function update(int $id, DummyClassRepositoryRequest $dummyRepositoryClassRequest, DummyClass $dummyClass): ?DummyClass;
+    public function update(int $id, DummyClassRepositoryRequest $dummyClassRepositoryRequest, DummyClass $dummyClass): ?DummyClass;
 
     /**
      * @param int $id
