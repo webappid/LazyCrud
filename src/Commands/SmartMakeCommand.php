@@ -76,6 +76,8 @@ abstract class SmartMakeCommand extends GeneratorCommand
     {
         $this->inputName = $this->getNameInput();
 
+        $this->callSilent('route:clear');
+
         $this->prevHandle();
 
         $this->checkRequiredProperties();
