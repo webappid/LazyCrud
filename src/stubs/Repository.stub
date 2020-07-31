@@ -89,7 +89,7 @@ class DummyClassRepository implements DummyClassRepositoryContract
      */
     public function delete(int $id, DummyClass $dummyClass): bool
     {
-        $dummyClass = $this->getById($id, $dummyClass);
+        $dummyClass = $dummyClass->find($id);
         if($dummyClass!=null){
             return $dummyClass->delete();
         }else{
