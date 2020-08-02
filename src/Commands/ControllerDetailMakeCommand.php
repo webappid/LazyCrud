@@ -42,10 +42,10 @@ class ControllerDetailMakeCommand extends ControllerMakeCommand
 
     function prevHandle()
     {
-        if($this->option('inject-route')){
+        if ($this->option('inject-route')) {
             $this->injectRoute = $this->option('inject-route');
         }
-        if($this->option('auth')){
+        if ($this->option('auth')) {
             $this->auth = true;
         }
         $this->createServiceContract();
@@ -59,7 +59,7 @@ class ControllerDetailMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/'.$this->lower.'/{id}\', \\'.$this->folder.'\\'.$this->inputName.'DetailController::class)->name(\'lazy.'.$this->lower.'.detail\');
+Route::get(\'/' . str_replace('_', '-', $this->folderName) . '/{id}\', \\' . $this->folder . '\\' . $this->inputName . 'DetailController::class)->name(\'lazy.' . str_replace('_', '-', $this->folderName) . '.detail\');
 ';
     }
 }

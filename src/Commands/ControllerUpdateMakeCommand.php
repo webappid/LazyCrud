@@ -51,10 +51,10 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
 
     function prevHandle()
     {
-        if($this->option('inject-route')){
+        if ($this->option('inject-route')) {
             $this->injectRoute = $this->option('inject-route');
         }
-        if($this->option('auth')){
+        if ($this->option('auth')) {
             $this->auth = true;
         }
         $this->createRequest();
@@ -78,7 +78,7 @@ class ControllerUpdateMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::post(\'/' . $this->lower . '/{id}/update\', \\' . $this->folder . '\\' . $this->inputName . 'UpdateController::class)->name(\'lazy.' . $this->lower . '.update\');
+Route::post(\'/' . str_replace('_', '-', $this->folderName) . '/{id}/update\', \\' . $this->folder . '\\' . $this->inputName . 'UpdateController::class)->name(\'lazy.' . str_replace('_', '-', $this->folderName) . '.update\');
 ';
     }
 }

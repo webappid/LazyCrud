@@ -42,10 +42,10 @@ class ControllerDeleteMakeCommand extends ControllerMakeCommand
 
     function prevHandle()
     {
-        if($this->option('inject-route')){
+        if ($this->option('inject-route')) {
             $this->injectRoute = $this->option('inject-route');
         }
-        if($this->option('auth')){
+        if ($this->option('auth')) {
             $this->auth = true;
         }
         $this->createServiceContract();
@@ -59,7 +59,7 @@ class ControllerDeleteMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/'.$this->lower.'/{id}/delete\', \\'.$this->folder.'\\'.$this->inputName.'DeleteController::class)->name(\'lazy.'.$this->lower.'.delete\');
+Route::get(\'/' . str_replace('_', '-', $this->folderName) . '/{id}/delete\', \\' . $this->folder . '\\' . $this->inputName . 'DeleteController::class)->name(\'lazy.' . str_replace('_','-', $this->folderName) . '.delete\');
 ';
     }
 }

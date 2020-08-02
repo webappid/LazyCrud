@@ -45,6 +45,11 @@ abstract class SmartMakeCommand extends GeneratorCommand
     protected $nameSpace;
 
     /**
+     * @var string
+     */
+    protected $folderName;
+
+    /**
      * @var bool
      */
     protected $isSubFolder = false;
@@ -75,6 +80,8 @@ abstract class SmartMakeCommand extends GeneratorCommand
     public function handle()
     {
         $this->inputName = $this->getNameInput();
+
+        $this->folderName = Str::snake(class_basename($this->inputName));
 
         $this->callSilent('route:clear');
 
