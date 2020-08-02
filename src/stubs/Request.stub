@@ -10,7 +10,7 @@ use WebAppId\DDD\Requests\AbstractFormRequest;
  * @author: DummyAuthor
  * Date: DummyDate
  * Time: DummyTime
- * Class DummyClassService
+ * Class DummyClassRequest
  * @package DummyNamespace
  */
 
