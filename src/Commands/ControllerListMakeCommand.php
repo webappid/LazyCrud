@@ -67,7 +67,7 @@ class ControllerListMakeCommand extends ControllerMakeCommand
     function injectRouter(): string
     {
         return '
-Route::get(\'/' . str_replace('_', '-', $this->folderName) . '\', \\' . $this->folder . '\\' . $this->inputName . 'ListController::class)->name(\'lazy.' . str_replace('_', '-', $this->folderName) . '.list\');
+Route::get(\'/' . str_replace('_', '-', $this->folderName) . '/list\', \\' . $this->folder . '\\' . $this->inputName . 'ListController::class)->name(\'lazy.' . str_replace('_', '-', $this->folderName) . '.list\');
 ';
     }
 }
