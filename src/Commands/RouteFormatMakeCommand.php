@@ -41,7 +41,7 @@ class RouteFormatMakeCommand extends Command
                 $defaultRoute = "web";
             }
 
-            if ($routeName == $defaultRoute) {
+            if ($routeName == $defaultRoute && (!isset($value['action']['domain']) || $value['action']['domain']=="")) {
                 $name = isset($value['action']["as"]) ? $value['action']["as"] : null;
                 $names = explode('.', $name);
                 if ($name != null && $names[0] == 'lazy') {
